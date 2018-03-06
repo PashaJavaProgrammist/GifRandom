@@ -11,7 +11,6 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 
-
 class MainActivity : AppCompatActivity() {
 
     private lateinit var d: Disposable
@@ -30,13 +29,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun doAction() {
         try {
-            d = getRestApi().loadGifs(APIKEY, 1, "R")
+            d = getRestApi().loadGifs(APIKEY, Integer.parseInt(limit.text.toString()), rating.text.toString())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeOn(Schedulers.io())
-                    .subscribe({ result -> Log.d("myLogs", "res: $result") },
+                    .subscribe({ result -> Log.d("myLogs", "Data size = ${result.data?.size}") },
                             { error -> Log.d("myLogs", "error: $error") })
         } catch (ex: Exception) {
             Log.d("myLogs", "Exception: $ex")
         }
     }
+
 }

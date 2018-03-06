@@ -1,6 +1,5 @@
 package com.haretskiy.pavel.gifrandom.retrofit
 
-import com.haretskiy.pavel.gifrandom.APIKEY
 import com.haretskiy.pavel.gifrandom.models.GifResponse
 import io.reactivex.Observable
 import retrofit2.http.GET
