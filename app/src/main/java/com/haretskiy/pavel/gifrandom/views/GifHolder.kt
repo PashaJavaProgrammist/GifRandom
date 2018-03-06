@@ -1,8 +1,13 @@
 package com.haretskiy.pavel.gifrandom.views
 
-import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
+import com.haretskiy.pavel.gifrandom.databinding.ItemHolderBinding
+import com.haretskiy.pavel.gifrandom.models.GifResponse
 
 
-class GifHolder(private val view: CardView) : RecyclerView.ViewHolder(view) {
+class GifHolder(var mItemGifBinding: ItemHolderBinding) : RecyclerView.ViewHolder(mItemGifBinding.itemGif) {
+
+    fun bindGif(gifResult: GifResponse) {
+
+    }
 }

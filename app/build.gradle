@@ -20,10 +20,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    dataBinding {
+        enabled = true
+    }
 }
 
 def retrofitVersion = '2.3.0'
-def support_version = "27.0.2"
+def support_version = "27.1.0"
 def glideVersion = '4.6.1'
 def rxLifeCycle = '2.2.1'
 
