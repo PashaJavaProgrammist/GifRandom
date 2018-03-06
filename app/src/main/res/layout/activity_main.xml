@@ -14,12 +14,12 @@
         android:layout_weight="2"
         android:hint="limit" />
 
-    <EditText
+    <Spinner
         android:id="@+id/rating"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:hint="rating" />
+        android:entries="@array/ratings"
+        android:layout_weight="1" />
 
     <Button
         android:id="@+id/bt"

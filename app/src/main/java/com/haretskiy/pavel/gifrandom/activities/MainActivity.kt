@@ -2,7 +2,7 @@ package com.haretskiy.pavel.gifrandom.activities
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.widget.Toast
 import com.haretskiy.pavel.gifrandom.APIKEY
 import com.haretskiy.pavel.gifrandom.R
 import com.haretskiy.pavel.gifrandom.retrofit.getRestApi
@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        bt.setOnClickListener({ _ -> doAction() })
+        bt.setOnClickListener({ doAction() })
     }
 
     override fun onDestroy() {
@@ -27,16 +27,20 @@ class MainActivity : AppCompatActivity() {
         d.dispose()
     }
 
+    //***********************************************************//
+    //Methods
+    //***********************************************************//
+
     private fun doAction() {
-        try {
-            d = getRestApi().loadGifs(APIKEY, Integer.parseInt(limit.text.toString()), rating.text.toString())
+        val limit = limit.text.toString()
+        if (limit.isNotEmpty() && limit.toInt() <= 25) {
+            d = getRestApi().loadGifs(APIKEY, limit.toInt(), rating.selectedItem.toString())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeOn(Schedulers.io())
-                    .subscribe({ result -> Log.d("myLogs", "Data size = ${result.data?.size}") },
-                            { error -> Log.d("myLogs", "error: $error") })
-        } catch (ex: Exception) {
-            Log.d("myLogs", "Exception: $ex")
+                    .subscribe({ Toast.makeText(this, "Data: ${it.data}", Toast.LENGTH_LONG).show() },
+                            { Toast.makeText(this, "error: $it", Toast.LENGTH_SHORT).show() })
+        } else {
+            Toast.makeText(this, "Add limit. Limit must be less then 25.", Toast.LENGTH_SHORT).show()
         }
     }
-
 }
