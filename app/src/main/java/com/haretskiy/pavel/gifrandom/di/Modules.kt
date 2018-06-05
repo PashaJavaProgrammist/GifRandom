@@ -37,7 +37,7 @@ val appModule: Module = applicationContext {
 }
 
 val viewModelModel: Module = applicationContext {
-    viewModel { MainViewModel(get(), get()) }
+    viewModel { MainViewModel(androidApplication(), get(), get()) }
 }
 
 
