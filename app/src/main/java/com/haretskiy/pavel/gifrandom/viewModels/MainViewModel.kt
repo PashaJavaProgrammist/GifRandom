@@ -16,14 +16,14 @@ class MainViewModel(private val restApi: RestApiImpl,
     private fun doAction(limit: Int, rating: String) {
         if (limit <= 25) {
             d = restApi.loadGifs(limit, rating)
-                    .observeOn(AndroidSchedulers.mainThread())
                     .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
                             {
                                 toaster.showToast("Data: ${it.data}", true)
                             },
                             {
-                                toaster.showToast("error: $it", false)
+                                toaster.showToast("Error: $it", false)
 
                             }
                     )
