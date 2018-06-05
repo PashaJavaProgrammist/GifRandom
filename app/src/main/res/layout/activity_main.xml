@@ -19,7 +19,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:hint="@string/limit"
-            android:inputType="number" />
+            android:inputType="number"
+            android:text="@={model.limit}" />
 
         <Spinner
             android:id="@+id/rating"

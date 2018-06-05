@@ -1,6 +1,7 @@
 package com.haretskiy.pavel.gifrandom.viewModels
 
 import android.arch.lifecycle.ViewModel
+import android.databinding.ObservableField
 import android.view.View
 import com.haretskiy.pavel.gifrandom.rest.RestApiImpl
 import com.haretskiy.pavel.gifrandom.utils.Toaster
@@ -13,8 +14,11 @@ class MainViewModel(private val restApi: RestApiImpl,
 
     private var d: Disposable? = null
 
+    var limit: ObservableField<String> = ObservableField()
+    var rating: ObservableField<String> = ObservableField()
+
     private fun doAction(limit: Int, rating: String) {
-        if (limit <= 25 && limit > 0) {
+        if (limit in 1..25) {
             d = restApi.loadGifs(limit, rating)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -24,7 +28,6 @@ class MainViewModel(private val restApi: RestApiImpl,
                             },
                             {
                                 toaster.showToast("Error: $it", false)
-
                             }
                     )
         } else {
@@ -33,7 +36,12 @@ class MainViewModel(private val restApi: RestApiImpl,
     }
 
     fun onClickSearch(v: View) {
-        doAction(1, "Y")
+        if (!limit.get().isNullOrEmpty()) {
+            val l = limit.get()?.toInt() ?: 0
+            doAction(l, "Y")
+        } else {
+            toaster.showToast("Add limit. Limit must be less then 25 and more then 0.", false)
+        }
     }
 
     override fun onCleared() {
