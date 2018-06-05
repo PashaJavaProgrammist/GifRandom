@@ -14,7 +14,7 @@ class MainViewModel(private val restApi: RestApiImpl,
     private var d: Disposable? = null
 
     private fun doAction(limit: Int, rating: String) {
-        if (limit <= 25) {
+        if (limit <= 25 && limit > 0) {
             d = restApi.loadGifs(limit, rating)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -28,7 +28,7 @@ class MainViewModel(private val restApi: RestApiImpl,
                             }
                     )
         } else {
-            toaster.showToast("Add limit. Limit must be less then 25.", false)
+            toaster.showToast("Add limit. Limit must be less then 25 and more then 0.", false)
         }
     }
 
