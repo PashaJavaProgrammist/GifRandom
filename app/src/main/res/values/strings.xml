@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">GifRandom</string>
+    <string name="limit">Limit</string>
+    <string name="search">Search</string>
     <string-array name="ratings">
         <item>Y</item>
         <item>G</item>
