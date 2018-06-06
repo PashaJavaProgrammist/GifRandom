@@ -20,12 +20,16 @@
         card_view:cardUseCompatPadding="true">
 
         <ImageView
+            android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:contentDescription="@string/app_name"
             android:onClick="@{gifViewModel::onItemClick}"
-            tool:imageUrl="@{gifViewModel.imageUrl}" />
+            tool:imageLoader="@{gifViewModel.loader"
+            tool:imageUrl="@{gifViewModel.url}"
+            tool:imageView="@{gifViewModel.image}"
+            tool:progressBar="@{gifViewModel.progressBar}" />
 
         <ProgressBar
             android:id="@+id/progressbar"

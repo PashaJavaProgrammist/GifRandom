@@ -8,15 +8,16 @@ import android.view.ViewGroup
 import com.haretskiy.pavel.gifrandom.R
 import com.haretskiy.pavel.gifrandom.databinding.ItemHolderBinding
 import com.haretskiy.pavel.gifrandom.models.Data
+import com.haretskiy.pavel.gifrandom.utils.ImageLoader
 import com.haretskiy.pavel.gifrandom.views.GifHolder
 
 
-class GifAdapter(var gifsList: List<Data>) : RecyclerView.Adapter<GifHolder>() {
+class GifAdapter(var gifsList: List<Data>, private val imageLoader: ImageLoader) : RecyclerView.Adapter<GifHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GifHolder {
         val itemGifBinding: ItemHolderBinding =
                 DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_holder, parent, false)
-        return GifHolder(itemGifBinding)
+        return GifHolder(imageLoader, itemGifBinding)
     }
 
     override fun getItemCount() = gifsList.size

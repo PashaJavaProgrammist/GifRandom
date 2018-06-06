@@ -7,15 +7,18 @@ import android.support.v7.app.AppCompatActivity
 import com.haretskiy.pavel.gifrandom.R
 import com.haretskiy.pavel.gifrandom.adapters.GifAdapter
 import com.haretskiy.pavel.gifrandom.databinding.ActivityMainBinding
+import com.haretskiy.pavel.gifrandom.utils.ImageLoader
 import com.haretskiy.pavel.gifrandom.viewModels.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.architecture.ext.viewModel
+import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity() {
 
     private val mainViewModel: MainViewModel by viewModel()
+    private val imageLoader: ImageLoader by inject()
 
-    private val adapter = GifAdapter(emptyList())
+    private val adapter = GifAdapter(emptyList(), imageLoader)
 
     private val binding: ActivityMainBinding by lazy {
         DataBindingUtil.setContentView(this, R.layout.activity_main) as ActivityMainBinding

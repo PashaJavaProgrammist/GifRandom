@@ -3,12 +3,16 @@ package com.haretskiy.pavel.gifrandom.views
 import android.support.v7.widget.RecyclerView
 import com.haretskiy.pavel.gifrandom.databinding.ItemHolderBinding
 import com.haretskiy.pavel.gifrandom.models.Data
+import com.haretskiy.pavel.gifrandom.utils.ImageLoader
+import com.haretskiy.pavel.gifrandom.viewModels.GifHolderViewModel
 
 
-class GifHolder(var mItemGifBinding: ItemHolderBinding) : RecyclerView.ViewHolder(mItemGifBinding.itemGif) {
+class GifHolder(private val imageLoader: ImageLoader,
+                private val mItemGifBinding: ItemHolderBinding) : RecyclerView.ViewHolder(mItemGifBinding.root) {
 
     fun bindGif(data: Data) {
-
+        mItemGifBinding.gifViewModel = GifHolderViewModel(imageLoader, data, mItemGifBinding.imageView)
+        mItemGifBinding.executePendingBindings()
     }
 
 
