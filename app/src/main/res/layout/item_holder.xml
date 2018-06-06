@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="android.widget.ProgressBar" />
+
         <variable
             name="gifViewModel"
             type="com.haretskiy.pavel.gifrandom.viewModels.GifHolderViewModel" />
@@ -27,6 +29,7 @@
             android:contentDescription="@string/app_name"
             android:onClick="@{gifViewModel::onItemClick}"
             tool:imageLoader="@{gifViewModel.loader}"
+            tool:progress="@{gifViewModel.observableProgressBar}"
             tool:imageUrl="@{gifViewModel.url}" />
 
         <ProgressBar
@@ -39,4 +42,3 @@
 
 </layout>
 
-    <!----><!--tool:progress="@{gifViewModel.observableProgressBar}" -->
