@@ -7,6 +7,7 @@ import android.databinding.ObservableField
 import android.databinding.ObservableInt
 import android.view.View
 import com.haretskiy.pavel.gifrandom.R
+import com.haretskiy.pavel.gifrandom.models.Data
 import com.haretskiy.pavel.gifrandom.rest.RestApiImpl
 import com.haretskiy.pavel.gifrandom.utils.Toaster
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -20,7 +21,10 @@ class MainViewModel(private val context: Application,
 
     private var d: Disposable? = null
 
+    private var gifsList: List<Data> = emptyList()
+
     val updateLiveData = MutableLiveData<Boolean>()
+    val gifsLiveData = MutableLiveData<List<Data>>()
 
     var limit: ObservableField<String> = ObservableField("1")
     var ratingSelectedPos: ObservableInt = ObservableInt()
@@ -33,6 +37,10 @@ class MainViewModel(private val context: Application,
                     .subscribe(
                             {
                                 toaster.showToast("Data: ${it.data}", true)
+                                if (it != null) {
+                                    gifsList = it.data
+                                    gifsLiveData.postValue(gifsList)
+                                }
                             },
                             {
                                 toaster.showToast("Error: $it", false)

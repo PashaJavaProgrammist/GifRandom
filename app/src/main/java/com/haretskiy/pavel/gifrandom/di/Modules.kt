@@ -5,6 +5,7 @@ import com.haretskiy.pavel.gifrandom.BASE_URL
 import com.haretskiy.pavel.gifrandom.rest.JsonLoggingInterceptor
 import com.haretskiy.pavel.gifrandom.rest.RestApi
 import com.haretskiy.pavel.gifrandom.rest.RestApiImpl
+import com.haretskiy.pavel.gifrandom.utils.ImageLoaderImpl
 import com.haretskiy.pavel.gifrandom.utils.Toaster
 import com.haretskiy.pavel.gifrandom.viewModels.MainViewModel
 import okhttp3.OkHttpClient
@@ -34,6 +35,7 @@ val restModule: Module = applicationContext {
 
 val appModule: Module = applicationContext {
     bean { Toaster(androidApplication()) }
+    bean { ImageLoaderImpl() }
 }
 
 val viewModelModel: Module = applicationContext {

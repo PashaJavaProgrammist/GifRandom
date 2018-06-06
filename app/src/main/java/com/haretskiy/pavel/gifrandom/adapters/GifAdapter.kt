@@ -1,22 +1,27 @@
 package com.haretskiy.pavel.gifrandom.adapters
 
-//
-//import android.support.v7.widget.RecyclerView
-//import android.view.ViewGroup
-//import com.haretskiy.pavel.gifrandom.models.GifResponse
-//import com.haretskiy.pavel.gifrandom.views.GifHolder
+
+import android.databinding.DataBindingUtil
+import android.support.v7.widget.RecyclerView
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import com.haretskiy.pavel.gifrandom.R
+import com.haretskiy.pavel.gifrandom.databinding.ItemHolderBinding
+import com.haretskiy.pavel.gifrandom.models.Data
+import com.haretskiy.pavel.gifrandom.views.GifHolder
 
 
-//class GifAdapter(private var notesList: List<GifResponse>) : RecyclerView.Adapter<GifHolder>() {
-//    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GifHolder {
-//        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-//    }
-//
-//    override fun getItemCount(): Int {
-//        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-//    }
-//
-//    override fun onBindViewHolder(holder: GifHolder, position: Int) {
-//        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-//    }
-//}
+class GifAdapter(var gifsList: List<Data>) : RecyclerView.Adapter<GifHolder>() {
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GifHolder {
+        val itemGifBinding: ItemHolderBinding =
+                DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_holder, parent, false)
+        return GifHolder(itemGifBinding)
+    }
+
+    override fun getItemCount() = gifsList.size
+
+    override fun onBindViewHolder(holder: GifHolder, position: Int) {
+        holder.bindGif(gifsList[position])
+    }
+}

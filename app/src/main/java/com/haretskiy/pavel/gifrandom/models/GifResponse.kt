@@ -7,5 +7,5 @@ data class GifResponse(
 
         @SerializedName("data")
         @Expose
-        var data: List<Data>? = null
+        var data: List<Data> = emptyList()
 )
