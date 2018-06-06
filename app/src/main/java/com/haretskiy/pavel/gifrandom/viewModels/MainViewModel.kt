@@ -2,6 +2,7 @@ package com.haretskiy.pavel.gifrandom.viewModels
 
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
+import android.arch.lifecycle.MutableLiveData
 import android.databinding.ObservableField
 import android.databinding.ObservableInt
 import android.view.View
@@ -18,6 +19,8 @@ class MainViewModel(private val context: Application,
                     private val toaster: Toaster) : AndroidViewModel(context) {
 
     private var d: Disposable? = null
+
+    val updateLiveData = MutableLiveData<Boolean>()
 
     var limit: ObservableField<String> = ObservableField()
     var ratingSelectedPos: ObservableInt = ObservableInt()
@@ -40,7 +43,7 @@ class MainViewModel(private val context: Application,
         }
     }
 
-    fun onClickSearch(v: View) {
+    fun onClickSearch(@Suppress("UNUSED_PARAMETER") v: View) {
         if (!limit.get().isNullOrEmpty()) {
             val l = limit.get()?.toInt() ?: 0
             doAction(l, getCurrentRating())

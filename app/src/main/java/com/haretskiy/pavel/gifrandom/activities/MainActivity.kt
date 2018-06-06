@@ -1,5 +1,6 @@
 package com.haretskiy.pavel.gifrandom.activities
 
+import android.arch.lifecycle.Observer
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -21,6 +22,16 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         binding.model = mainViewModel
+
+        mainViewModel.updateLiveData.observe(this, Observer {
+            if (it == true) binding.invalidateAll()
+        })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.invalidateAll()
+        //todo: is it work?
     }
 
 }
