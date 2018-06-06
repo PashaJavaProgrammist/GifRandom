@@ -10,7 +10,10 @@ import com.haretskiy.pavel.gifrandom.models.Data
 import com.haretskiy.pavel.gifrandom.utils.ImageLoader
 
 
-class GifHolderViewModel(imageLoader: ImageLoader, private val data: Data, mItemGifBinding: ItemHolderBinding) {
+class GifHolderViewModel(
+        imageLoader: ImageLoader,
+        data: Data,
+        mItemGifBinding: ItemHolderBinding) {
 
     var progress: ObservableInt = ObservableInt(View.VISIBLE)
     var progressBar = ObservableField<ProgressBar>(mItemGifBinding.progressBar)
