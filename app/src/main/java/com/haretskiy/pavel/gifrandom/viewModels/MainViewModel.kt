@@ -36,7 +36,6 @@ class MainViewModel(private val context: Application,
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
                             {
-                                toaster.showToast("Data: ${it.data}", true)
                                 if (it != null) {
                                     gifsList = it.data
                                     gifsLiveData.postValue(gifsList)
