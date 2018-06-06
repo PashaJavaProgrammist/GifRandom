@@ -11,7 +11,7 @@ import com.haretskiy.pavel.gifrandom.utils.ImageLoader
 class GifHolderViewModel(imageLoader: ImageLoader, private val data: Data) {
 
     var progress: ObservableInt = ObservableInt(View.VISIBLE)
-    var progressBar = ObservableField<ObservableInt>(progress)
+    var observableProgressBar = ObservableField<ObservableInt>(progress)
     var url = ObservableField<String>(data.images?.original?.url ?: EMPTY_STRING)
     var loader = ObservableField<ImageLoader>(imageLoader)
 

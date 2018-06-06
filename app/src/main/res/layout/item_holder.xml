@@ -39,4 +39,4 @@
 
 </layout>
 
-    <!----><!--tool:progressBar="@{gifViewModel.progressBar}" -->
+    <!----><!--tool:progress="@{gifViewModel.observableProgressBar}" -->
