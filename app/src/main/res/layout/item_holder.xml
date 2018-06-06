@@ -26,9 +26,7 @@
             android:layout_gravity="center"
             android:contentDescription="@string/app_name"
             android:onClick="@{gifViewModel::onItemClick}"
-            tool:imageLoader="@{gifViewModel.loader}"
-            tool:imageUrl="@{gifViewModel.url}"
-            tool:progressBar="@{gifViewModel.progressBar}" />
+            tool:imageUrl="@{gifViewModel.url}" />
 
         <ProgressBar
             android:id="@+id/progress_bar"
@@ -39,3 +37,5 @@
     </android.support.v7.widget.CardView>
 
 </layout>
+
+    <!--tool:imageLoader="@{gifViewModel.loader}"--><!--tool:progressBar="@{gifViewModel.progressBar}" -->
