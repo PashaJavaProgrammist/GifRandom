@@ -28,10 +28,4 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    override fun onResume() {
-        super.onResume()
-        binding.invalidateAll()
-        //todo: is it work?
-    }
-
 }
