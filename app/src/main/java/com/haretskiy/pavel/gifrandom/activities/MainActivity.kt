@@ -7,11 +7,11 @@ import android.support.v7.app.AppCompatActivity
 import com.haretskiy.pavel.gifrandom.R
 import com.haretskiy.pavel.gifrandom.databinding.ActivityMainBinding
 import com.haretskiy.pavel.gifrandom.viewModels.MainViewModel
-import org.koin.android.ext.android.inject
+import org.koin.android.architecture.ext.viewModel
 
 class MainActivity : AppCompatActivity() {
 
-    private val mainViewModel: MainViewModel by inject()
+    private val mainViewModel: MainViewModel by viewModel()
 
     private val binding: ActivityMainBinding by lazy {
         DataBindingUtil.setContentView(this, R.layout.activity_main) as ActivityMainBinding

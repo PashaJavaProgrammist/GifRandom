@@ -18,11 +18,15 @@ class MainViewModel(private val context: Application,
                     private val restApi: RestApiImpl,
                     private val toaster: Toaster) : AndroidViewModel(context) {
 
+    init {
+        toaster.showToast(this.hashCode().toString(), false)
+    }
+
     private var d: Disposable? = null
 
     val updateLiveData = MutableLiveData<Boolean>()
 
-    var limit: ObservableField<String> = ObservableField()
+    var limit: ObservableField<String> = ObservableField("1")
     var ratingSelectedPos: ObservableInt = ObservableInt()
 
     private fun doAction(limit: Int, rating: String) {
