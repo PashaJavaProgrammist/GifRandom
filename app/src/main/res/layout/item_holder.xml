@@ -27,7 +27,7 @@
             android:contentDescription="@string/app_name"
             android:onClick="@{gifViewModel::onItemClick}"
             tool:imageLoader="@{gifViewModel.loader}"
-            tool:progress="@{gifViewModel.progressBar}"
+            tool:progress="@{gifViewModel.observableProgressController}"
             tool:imageUrl="@{gifViewModel.url}" />
 
         <ProgressBar

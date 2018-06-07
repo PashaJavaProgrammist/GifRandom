@@ -18,7 +18,7 @@ class ImageLoaderImpl : ImageLoader {
                 .load(url)
                 .apply(RequestOptions
                         .centerInsideTransform()
-                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE))
+                        .diskCacheStrategy(DiskCacheStrategy.ALL))
                 .listener(object : RequestListener<Drawable> {
 
                     override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {

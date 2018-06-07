@@ -11,7 +11,9 @@ class GifHolder(private val imageLoader: ImageLoader,
                 private val mItemGifBinding: ItemHolderBinding) : RecyclerView.ViewHolder(mItemGifBinding.root) {
 
     fun bindGif(data: Data) {
-        mItemGifBinding.gifViewModel = GifHolderViewModel(imageLoader, data, mItemGifBinding)
+        val viewModel = GifHolderViewModel(imageLoader, data, mItemGifBinding.root.context)
+        viewModel.initObservers()
+        mItemGifBinding.gifViewModel = viewModel
         mItemGifBinding.executePendingBindings()
     }
 

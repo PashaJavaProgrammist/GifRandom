@@ -1,28 +1,27 @@
 package com.haretskiy.pavel.gifrandom
 
 import android.databinding.BindingAdapter
-import android.view.View
 import android.widget.ImageView
-import android.widget.ProgressBar
 import com.haretskiy.pavel.gifrandom.utils.ImageLoader
 import com.haretskiy.pavel.gifrandom.utils.ImageLoaderImpl
+import com.haretskiy.pavel.gifrandom.utils.ProgressController
 
 
 @BindingAdapter("imageUrl", "progress", "imageLoader")
-fun ImageView.loadImage(url: String, progressBar: ProgressBar, imageLoader: ImageLoader) {
+fun ImageView.loadImage(url: String, progressController: ProgressController, imageLoader: ImageLoader) {
 
     imageLoader.loadImage(this, url, object : ImageLoaderImpl.LoadListener {
 
         override fun onLoadStarted() {
-            progressBar.visibility = View.VISIBLE
+            progressController.setProgressVisibility(true)
         }
 
         override fun onLoadFinished() {
-            progressBar.visibility = View.GONE
+            progressController.setProgressVisibility(false)
         }
 
         override fun onLoadFailed() {
-            progressBar.visibility = View.GONE
+            progressController.setProgressVisibility(false)
         }
     })
 }
