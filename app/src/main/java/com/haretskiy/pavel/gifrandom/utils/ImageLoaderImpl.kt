@@ -9,6 +9,7 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
+import com.haretskiy.pavel.gifrandom.R
 
 class ImageLoaderImpl : ImageLoader {
 
@@ -18,7 +19,10 @@ class ImageLoaderImpl : ImageLoader {
                 .load(url)
                 .apply(RequestOptions
                         .centerInsideTransform()
-                        .diskCacheStrategy(DiskCacheStrategy.ALL))
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .placeholder(R.drawable.no_photo)
+                        .error(R.drawable.error)
+                )
                 .listener(object : RequestListener<Drawable> {
 
                     override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
