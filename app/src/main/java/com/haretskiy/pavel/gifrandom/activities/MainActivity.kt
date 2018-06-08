@@ -8,6 +8,7 @@ import com.haretskiy.pavel.gifrandom.R
 import com.haretskiy.pavel.gifrandom.adapters.GifAdapter
 import com.haretskiy.pavel.gifrandom.databinding.ActivityMainBinding
 import com.haretskiy.pavel.gifrandom.utils.ImageLoader
+import com.haretskiy.pavel.gifrandom.utils.Router
 import com.haretskiy.pavel.gifrandom.viewModels.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.architecture.ext.viewModel
@@ -17,8 +18,9 @@ class MainActivity : AppCompatActivity() {
 
     private val mainViewModel: MainViewModel by viewModel()
     private val imageLoader: ImageLoader by inject()
+    private val router: Router by inject()
 
-    private val adapter = GifAdapter(emptyList(), imageLoader)
+    private val adapter = GifAdapter(emptyList(), imageLoader, router)
 
     private val binding: ActivityMainBinding by lazy {
         DataBindingUtil.setContentView(this, R.layout.activity_main) as ActivityMainBinding
@@ -26,7 +28,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
         binding.model = mainViewModel
 

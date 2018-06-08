@@ -33,7 +33,7 @@ def koin_version = '0.9.2'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     implementation "com.android.support:appcompat-v7:${support_version}"
     implementation "com.android.support:design:${support_version}"
@@ -55,6 +55,7 @@ dependencies {
 
     implementation "pl.droidsonroids.gif:android-gif-drawable:1.2.10"
     implementation "com.github.bumptech.glide:glide:$glideVersion"
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     kapt "com.github.bumptech.glide:compiler:$glideVersion"
 
     // Koin for Kotlin

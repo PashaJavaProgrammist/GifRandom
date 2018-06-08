@@ -5,9 +5,8 @@ import com.haretskiy.pavel.gifrandom.BASE_URL
 import com.haretskiy.pavel.gifrandom.rest.JsonLoggingInterceptor
 import com.haretskiy.pavel.gifrandom.rest.RestApi
 import com.haretskiy.pavel.gifrandom.rest.RestApiImpl
-import com.haretskiy.pavel.gifrandom.utils.ImageLoader
-import com.haretskiy.pavel.gifrandom.utils.ImageLoaderImpl
-import com.haretskiy.pavel.gifrandom.utils.Toaster
+import com.haretskiy.pavel.gifrandom.utils.*
+import com.haretskiy.pavel.gifrandom.viewModels.DetailViewModel
 import com.haretskiy.pavel.gifrandom.viewModels.MainViewModel
 import okhttp3.OkHttpClient
 import org.koin.android.architecture.ext.viewModel
@@ -37,10 +36,13 @@ val restModule: Module = applicationContext {
 val appModule: Module = applicationContext {
     bean { Toaster(androidApplication()) }
     bean { ImageLoaderImpl() as ImageLoader }
+    bean { RouterImpl(androidApplication()) as Router }
+    factory { ProgressController() }
 }
 
 val viewModelModel: Module = applicationContext {
     viewModel { MainViewModel(androidApplication(), get(), get()) }
+    viewModel { DetailViewModel(get(), get()) }
 }
 
 
