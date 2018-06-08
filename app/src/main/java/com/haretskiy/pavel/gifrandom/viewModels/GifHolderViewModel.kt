@@ -19,10 +19,12 @@ class GifHolderViewModel(
     private val progressController = ProgressController()
     private var urlStr = data.images?.original?.url ?: EMPTY_STRING
 
-    var progress: ObservableInt = ObservableInt(View.VISIBLE)
-    var url = ObservableField<String>(urlStr)
-    var loader = ObservableField<ImageLoader>(imageLoader)
-    var observableProgressController = ObservableField<ProgressController>(progressController)
+    val progress: ObservableInt = ObservableInt(View.VISIBLE)
+    val url: ObservableField<String> by lazy {
+        ObservableField<String>(urlStr)
+    }
+    val loader = ObservableField<ImageLoader>(imageLoader)
+    val observableProgressController = ObservableField<ProgressController>(progressController)
 
     fun onItemClick(@Suppress("UNUSED_PARAMETER") v: View) {
         router.startDetailActivity(urlStr)

@@ -6,21 +6,17 @@ import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableField
 import android.databinding.ObservableInt
 import android.view.View
-import com.haretskiy.pavel.gifrandom.EMPTY_STRING
 import com.haretskiy.pavel.gifrandom.utils.ImageLoader
 import com.haretskiy.pavel.gifrandom.utils.ProgressController
 
 class DetailViewModel(imageLoader: ImageLoader,
-                      private val progressController: ProgressController) : ViewModel() {
+                      private val progressController: ProgressController,
+                      url: String) : ViewModel() {
 
-    var progress: ObservableInt = ObservableInt(View.VISIBLE)
-    var url = ObservableField<String>(/*data.images?.original?.url ?:*/ EMPTY_STRING)
-    var loader = ObservableField<ImageLoader>(imageLoader)
-    var observableProgressController = ObservableField<ProgressController>(progressController)
-
-    fun onItemClick(@Suppress("UNUSED_PARAMETER") v: View) {
-
-    }
+    val progress: ObservableInt = ObservableInt(View.VISIBLE)
+    val url = ObservableField<String>(url)
+    val loader = ObservableField<ImageLoader>(imageLoader)
+    val observableProgressController = ObservableField<ProgressController>(progressController)
 
     fun initObservers(lifecycleOwner: LifecycleOwner) {
         progressController.subscribeOnProgressChanges(lifecycleOwner, Observer {

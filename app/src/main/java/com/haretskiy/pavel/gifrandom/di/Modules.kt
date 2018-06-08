@@ -2,6 +2,7 @@ package com.haretskiy.pavel.gifrandom.di
 
 import com.google.gson.GsonBuilder
 import com.haretskiy.pavel.gifrandom.BASE_URL
+import com.haretskiy.pavel.gifrandom.BUNDLE_KEY_URL
 import com.haretskiy.pavel.gifrandom.rest.JsonLoggingInterceptor
 import com.haretskiy.pavel.gifrandom.rest.RestApi
 import com.haretskiy.pavel.gifrandom.rest.RestApiImpl
@@ -11,6 +12,7 @@ import com.haretskiy.pavel.gifrandom.viewModels.MainViewModel
 import okhttp3.OkHttpClient
 import org.koin.android.architecture.ext.viewModel
 import org.koin.android.ext.koin.androidApplication
+import org.koin.dsl.context.ParameterProvider
 import org.koin.dsl.module.Module
 import org.koin.dsl.module.applicationContext
 import retrofit2.Retrofit
@@ -42,7 +44,9 @@ val appModule: Module = applicationContext {
 
 val viewModelModel: Module = applicationContext {
     viewModel { MainViewModel(androidApplication(), get(), get()) }
-    viewModel { DetailViewModel(get(), get()) }
+    viewModel { params: ParameterProvider ->
+        DetailViewModel(get(), get(), params[BUNDLE_KEY_URL])
+    }
 }
 
 

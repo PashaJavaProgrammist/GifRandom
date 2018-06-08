@@ -20,7 +20,6 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:contentDescription="@string/app_name"
-            android:onClick="@{detailModel::onItemClick}"
             tool:imageLoader="@{detailModel.loader}"
             tool:imageUrl="@{detailModel.url}"
             tool:progress="@{detailModel.observableProgressController}" />
