@@ -23,7 +23,7 @@ class GifHolderViewModel(
     var loader = ObservableField<ImageLoader>(imageLoader)
     var observableProgressController = ObservableField<ProgressController>(progressController)
 
-    fun onItemClick(v: View) {
+    fun onItemClick(@Suppress("UNUSED_PARAMETER") v: View) {
 
     }
 
