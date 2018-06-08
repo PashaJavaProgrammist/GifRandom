@@ -5,6 +5,7 @@ import android.databinding.DataBindingUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import com.haretskiy.pavel.gifrandom.EMPTY_STRING
 import com.haretskiy.pavel.gifrandom.R
 import com.haretskiy.pavel.gifrandom.databinding.ItemHolderBinding
 import com.haretskiy.pavel.gifrandom.models.Data
@@ -26,6 +27,8 @@ class GifAdapter(var gifsList: List<Data>,
     override fun getItemCount() = gifsList.size
 
     override fun onBindViewHolder(holder: GifHolder, position: Int) {
-        holder.bindGif(gifsList[position])
+        holder.bindGif(gifsList[position].images?.original?.url
+                ?: gifsList[position].images?.fixed_height?.url
+                ?: gifsList[position].images?.fixed_width?.url ?: EMPTY_STRING)
     }
 }
