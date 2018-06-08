@@ -11,7 +11,6 @@ import com.haretskiy.pavel.gifrandom.models.Data
 import com.haretskiy.pavel.gifrandom.utils.ImageLoader
 import com.haretskiy.pavel.gifrandom.utils.ProgressController
 
-
 class GifHolderViewModel(
         imageLoader: ImageLoader,
         data: Data,
@@ -29,7 +28,7 @@ class GifHolderViewModel(
     }
 
     fun initObservers() {
-        progressController.liveData.observe(context as LifecycleOwner, Observer {
+        progressController.subscribeOnProgressChanges(context as LifecycleOwner, Observer {
             progress.set(if (it == true) View.VISIBLE else View.GONE)
         })
     }
