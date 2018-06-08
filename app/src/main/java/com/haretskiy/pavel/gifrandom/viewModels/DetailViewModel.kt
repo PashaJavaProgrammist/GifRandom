@@ -15,7 +15,7 @@ class DetailViewModel(imageLoader: ImageLoader,
     val progress: ObservableInt = ObservableInt(View.VISIBLE)
     val url = ObservableField<String>(url)
     val loader = ObservableField<ImageLoader>(imageLoader)
-    val progressController: ProgressController by lazy {
+    private val progressController: ProgressController by lazy {
         ProgressController()
     }
     val observableProgressController = ObservableField<ProgressController>(progressController)
