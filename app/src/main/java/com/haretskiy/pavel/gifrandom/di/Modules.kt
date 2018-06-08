@@ -39,13 +39,12 @@ val appModule: Module = applicationContext {
     bean { Toaster(androidApplication()) }
     bean { ImageLoaderImpl() as ImageLoader }
     bean { RouterImpl(androidApplication()) as Router }
-    factory { ProgressController() }
 }
 
 val viewModelModel: Module = applicationContext {
     viewModel { MainViewModel(androidApplication(), get(), get()) }
     viewModel { params: ParameterProvider ->
-        DetailViewModel(get(), get(), params[BUNDLE_KEY_URL])
+        DetailViewModel(get(), params[BUNDLE_KEY_URL])
     }
 }
 

@@ -10,12 +10,14 @@ import com.haretskiy.pavel.gifrandom.utils.ImageLoader
 import com.haretskiy.pavel.gifrandom.utils.ProgressController
 
 class DetailViewModel(imageLoader: ImageLoader,
-                      private val progressController: ProgressController,
                       url: String) : ViewModel() {
 
     val progress: ObservableInt = ObservableInt(View.VISIBLE)
     val url = ObservableField<String>(url)
     val loader = ObservableField<ImageLoader>(imageLoader)
+    val progressController: ProgressController by lazy {
+        ProgressController()
+    }
     val observableProgressController = ObservableField<ProgressController>(progressController)
 
     fun initObservers(lifecycleOwner: LifecycleOwner) {
