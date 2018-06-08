@@ -26,10 +26,12 @@ class MainViewModel(private val context: Application,
     val updateLiveData = MutableLiveData<Boolean>()
     val gifsLiveData = MutableLiveData<List<Data>>()
 
-    var limit: ObservableField<String> = ObservableField("1")
-    var ratingSelectedPos: ObservableInt = ObservableInt()
+    val limit: ObservableField<String> = ObservableField("1")
+    val ratingSelectedPos = ObservableInt(0)
+    val progress = ObservableInt(View.GONE)
 
     private fun doAction(limit: Int, rating: String) {
+        progress.set(View.VISIBLE)
         if (limit in 1..25) {
             d = restApi.loadGifs(limit, rating)
                     .subscribeOn(Schedulers.io())
@@ -40,9 +42,11 @@ class MainViewModel(private val context: Application,
                                     gifsList = it.data
                                     gifsLiveData.postValue(gifsList)
                                 }
+                                progress.set(View.GONE)
                             },
                             {
                                 toaster.showToast("Error: $it", false)
+                                progress.set(View.GONE)
                             }
                     )
         } else {
