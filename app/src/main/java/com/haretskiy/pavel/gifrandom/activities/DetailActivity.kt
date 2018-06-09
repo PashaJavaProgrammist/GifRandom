@@ -28,6 +28,10 @@ class DetailActivity : AppCompatActivity() {
         binding.detailModel = detailViewModel
         detailViewModel.initObservers(this)
 
+        makeTransition()
+    }
+
+    private fun makeTransition() {
         ViewCompat.setTransitionName(binding.imageView, VIEW_NAME_IMAGE)
         Handler().postDelayed({ recreate() }, START_ANIMATION_DELAY)
     }
