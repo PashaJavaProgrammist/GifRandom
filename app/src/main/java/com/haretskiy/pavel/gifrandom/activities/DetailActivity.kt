@@ -2,11 +2,10 @@ package com.haretskiy.pavel.gifrandom.activities
 
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.os.Handler
+import android.support.v4.view.ViewCompat
 import android.support.v7.app.AppCompatActivity
-import com.haretskiy.pavel.gifrandom.BUNDLE_KEY_URL
-import com.haretskiy.pavel.gifrandom.BUNDLE_KEY_URL_DETAIL
-import com.haretskiy.pavel.gifrandom.EMPTY_STRING
-import com.haretskiy.pavel.gifrandom.R
+import com.haretskiy.pavel.gifrandom.*
 import com.haretskiy.pavel.gifrandom.databinding.ActivityDetailBinding
 import com.haretskiy.pavel.gifrandom.viewModels.DetailViewModel
 import org.koin.android.architecture.ext.viewModel
@@ -28,5 +27,8 @@ class DetailActivity : AppCompatActivity() {
 
         binding.detailModel = detailViewModel
         detailViewModel.initObservers(this)
+
+        ViewCompat.setTransitionName(binding.imageView, VIEW_NAME_IMAGE)
+        Handler().postDelayed({ recreate() }, START_ANIMATION_DELAY)
     }
 }

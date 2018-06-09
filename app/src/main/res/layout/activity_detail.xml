@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tool="http://schemas.android.com/tools">
 
     <data>
@@ -9,7 +10,7 @@
             type="com.haretskiy.pavel.gifrandom.viewModels.DetailViewModel" />
     </data>
 
-    <FrameLayout
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -20,6 +21,10 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:contentDescription="@string/app_name"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tool:imageLoader="@{detailModel.loader}"
             tool:imageUrl="@{detailModel.url}"
             tool:progress="@{detailModel.observableProgressController}" />
@@ -29,7 +34,11 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_gravity="center"
-            android:visibility="@{detailModel.progress}" />
+            android:visibility="@{detailModel.progress}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    </FrameLayout>
+    </android.support.constraint.ConstraintLayout>
 </layout>

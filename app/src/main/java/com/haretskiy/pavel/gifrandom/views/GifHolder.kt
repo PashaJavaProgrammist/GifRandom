@@ -14,6 +14,7 @@ class GifHolder(private val imageLoader: ImageLoader,
 
     fun bindGif(url: String) {
         val viewModel = GifHolderViewModel(
+                mItemGifBinding,
                 imageLoader,
                 router,
                 url)
