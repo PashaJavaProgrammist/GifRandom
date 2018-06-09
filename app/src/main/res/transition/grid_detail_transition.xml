@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <transitionSet>
-    <!-- changeBounds is used for the ImageViews which are shared -->
-    <changeBounds />
-
+    <changeImageTransform />
 </transitionSet>
 
 
