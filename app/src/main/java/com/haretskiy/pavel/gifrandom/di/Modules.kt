@@ -3,6 +3,10 @@ package com.haretskiy.pavel.gifrandom.di
 import com.google.gson.GsonBuilder
 import com.haretskiy.pavel.gifrandom.BASE_URL
 import com.haretskiy.pavel.gifrandom.BUNDLE_KEY_URL
+import com.haretskiy.pavel.gifrandom.data.Repository
+import com.haretskiy.pavel.gifrandom.data.RepositoryImpl
+import com.haretskiy.pavel.gifrandom.data.Storage
+import com.haretskiy.pavel.gifrandom.data.StorageImpl
 import com.haretskiy.pavel.gifrandom.rest.JsonLoggingInterceptor
 import com.haretskiy.pavel.gifrandom.rest.RestApi
 import com.haretskiy.pavel.gifrandom.rest.RestApiImpl
@@ -39,6 +43,8 @@ val appModule: Module = applicationContext {
     bean { Toaster(androidApplication()) }
     bean { ImageLoaderImpl() as ImageLoader }
     bean { RouterImpl(androidApplication()) as Router }
+    bean { StorageImpl() as Storage }
+    bean { RepositoryImpl(get(), get()) as Repository }
 }
 
 val viewModelModel: Module = applicationContext {
