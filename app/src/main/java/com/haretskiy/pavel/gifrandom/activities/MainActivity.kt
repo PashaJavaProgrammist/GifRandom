@@ -34,6 +34,12 @@ class MainActivity : AppCompatActivity() {
         initRecyclerView()
 
         initObservers()
+
+        loadTrendingGifs()
+    }
+
+    private fun loadTrendingGifs() {
+        mainViewModel.loadTrendingGifs()
     }
 
     private fun initObservers() {

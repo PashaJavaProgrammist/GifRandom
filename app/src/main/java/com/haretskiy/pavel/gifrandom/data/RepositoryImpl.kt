@@ -14,4 +14,13 @@ class RepositoryImpl(
                 }
                 list
             }
+
+    override fun loadGifsByWord(word: String, rating: String, offset: String): Observable<List<String>> =
+            restApi.loadGifsByWord(word, rating).map {
+                val list = it.data.map {
+                    it.images?.original?.url ?: EMPTY_STRING
+                }
+                list
+            }
+
 }

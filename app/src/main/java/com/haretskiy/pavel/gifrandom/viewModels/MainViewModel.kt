@@ -6,11 +6,12 @@ import android.arch.lifecycle.MutableLiveData
 import android.databinding.ObservableField
 import android.databinding.ObservableInt
 import android.view.View
+import com.haretskiy.pavel.gifrandom.EMPTY_STRING
 import com.haretskiy.pavel.gifrandom.R
 import com.haretskiy.pavel.gifrandom.data.Repository
 import com.haretskiy.pavel.gifrandom.utils.Toaster
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
 
@@ -18,20 +19,20 @@ class MainViewModel(private val context: Application,
                     private val repository: Repository,
                     private val toaster: Toaster) : AndroidViewModel(context) {
 
-    private var d: Disposable? = null
+    private var compositeDisposable = CompositeDisposable()
 
     private var gifsList: List<String> = emptyList()
 
     val updateLiveData = MutableLiveData<Boolean>()
     val gifsLiveData = MutableLiveData<List<String>>()
 
-    val limit: ObservableField<String> = ObservableField("1")
+    val searchWord: ObservableField<String> = ObservableField()
     val ratingSelectedPos = ObservableInt(0)
     val progress = ObservableInt(View.GONE)
 
-    private fun doAction(rating: String) {
+    private fun loadGifs(rating: String) {
         progress.set(View.VISIBLE)
-        d = repository.loadGifs(rating)
+        val gifsDis = repository.loadGifs(rating)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -47,10 +48,36 @@ class MainViewModel(private val context: Application,
                             progress.set(View.GONE)
                         }
                 )
+        compositeDisposable.add(gifsDis)
+    }
+
+    private fun loadGifsByWord(word: String, rating: String) {
+        progress.set(View.VISIBLE)
+        val gifsDis = repository.loadGifsByWord(word, rating)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        {
+                            if (it != null) {
+                                gifsList = it
+                                gifsLiveData.postValue(gifsList)
+                            }
+                            progress.set(View.GONE)
+                        },
+                        {
+                            toaster.showToast("Error: $it", false)
+                            progress.set(View.GONE)
+                        }
+                )
+        compositeDisposable.add(gifsDis)
     }
 
     fun onClickSearch(@Suppress("UNUSED_PARAMETER") v: View) {
-        doAction(getCurrentRating())
+        if (searchWord.get().isNullOrEmpty()) {
+            loadGifs(getCurrentRating())
+        } else {
+            loadGifsByWord(searchWord.get() ?: EMPTY_STRING, getCurrentRating())
+        }
     }
 
     private fun getCurrentRating(): String {
@@ -60,7 +87,15 @@ class MainViewModel(private val context: Application,
 
     override fun onCleared() {
         super.onCleared()
-        d?.dispose()
+        compositeDisposable.dispose()
+    }
+
+    fun loadTrendingGifs() {
+        if (gifsList.isEmpty()) {
+            loadGifs(getCurrentRating())
+        } else {
+            gifsLiveData.postValue(gifsList)
+        }
     }
 }
 

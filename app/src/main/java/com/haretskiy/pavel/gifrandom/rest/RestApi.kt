@@ -14,4 +14,11 @@ interface RestApi {
                  @Query("limit") limit: Int,
                  @Query("rating") rating: String,
                  @Query("offset") offset: String = ZERO_OFFSET): Observable<GifResponse>
+
+    @GET("gifs/search")
+    fun loadGifsBySearchWord(@Query("api_key") apiKey: String,
+                             @Query("q") searchWord: String,
+                             @Query("limit") limit: Int,
+                             @Query("rating") rating: String,
+                             @Query("offset") offset: String = ZERO_OFFSET): Observable<GifResponse>
 }

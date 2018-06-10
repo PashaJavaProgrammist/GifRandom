@@ -5,4 +5,6 @@ import io.reactivex.Observable
 
 interface Repository {
     fun loadGifs(rating: String, offset: String = ZERO_OFFSET): Observable<List<String>>
+
+    fun loadGifsByWord(word: String, rating: String, offset: String = ZERO_OFFSET): Observable<List<String>>
 }
