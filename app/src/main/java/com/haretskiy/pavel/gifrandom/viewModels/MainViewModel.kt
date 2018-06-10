@@ -29,37 +29,28 @@ class MainViewModel(private val context: Application,
     val ratingSelectedPos = ObservableInt(0)
     val progress = ObservableInt(View.GONE)
 
-    private fun doAction(limit: Int, rating: String) {
+    private fun doAction(rating: String) {
         progress.set(View.VISIBLE)
-        if (limit in 1..25) {
-            d = repository.loadGifs(limit, rating)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(
-                            {
-                                if (it != null) {
-                                    gifsList = it
-                                    gifsLiveData.postValue(gifsList)
-                                }
-                                progress.set(View.GONE)
-                            },
-                            {
-                                toaster.showToast("Error: $it", false)
-                                progress.set(View.GONE)
+        d = repository.loadGifs(rating)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        {
+                            if (it != null) {
+                                gifsList = it
+                                gifsLiveData.postValue(gifsList)
                             }
-                    )
-        } else {
-            toaster.showToast("Add limit. Limit must be less then 25 and more then 0.", false)
-        }
+                            progress.set(View.GONE)
+                        },
+                        {
+                            toaster.showToast("Error: $it", false)
+                            progress.set(View.GONE)
+                        }
+                )
     }
 
     fun onClickSearch(@Suppress("UNUSED_PARAMETER") v: View) {
-        if (!limit.get().isNullOrEmpty()) {
-            val l = limit.get()?.toInt() ?: 0
-            doAction(l, getCurrentRating())
-        } else {
-            toaster.showToast("Add limit. Limit must be less then 25 and more then 0.", false)
-        }
+        doAction(getCurrentRating())
     }
 
     private fun getCurrentRating(): String {
