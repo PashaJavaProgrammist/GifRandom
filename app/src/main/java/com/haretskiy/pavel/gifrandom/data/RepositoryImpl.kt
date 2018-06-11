@@ -19,6 +19,9 @@ class RepositoryImpl(
                             if (it != null) {
                                 resultCallback.onResult(it)
                             }
+                        },
+                        {
+                            resultCallback.onResult(emptyList())
                         })
     }
 
@@ -31,6 +34,9 @@ class RepositoryImpl(
                             if (it != null) {
                                 resultCallback.onResult(it)
                             }
+                        },
+                        {
+                            resultCallback.onResult(emptyList())
                         })
     }
 
