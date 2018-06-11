@@ -42,6 +42,9 @@ val appModule: Module = applicationContext {
     bean { ImageLoaderImpl() as ImageLoader }
     bean { RouterImpl(androidApplication()) as Router }
     bean { RepositoryImpl(get()) as Repository }
+    bean { DiffCallBack() }
+    factory { GifsDataSource(get()) }
+    bean { MainThreadExecutor() }
 }
 
 val viewModelModel: Module = applicationContext {
