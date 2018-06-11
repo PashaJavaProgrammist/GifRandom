@@ -10,7 +10,9 @@ import android.databinding.ObservableField
 import android.databinding.ObservableInt
 import android.view.View
 import android.widget.AdapterView
+import com.haretskiy.pavel.gifrandom.INITIAL_LOAD_SIZE
 import com.haretskiy.pavel.gifrandom.LIMIT
+import com.haretskiy.pavel.gifrandom.PREFETCH_SIZE
 import com.haretskiy.pavel.gifrandom.R
 import com.haretskiy.pavel.gifrandom.utils.pagging.GifsSourceFactory
 import com.haretskiy.pavel.gifrandom.utils.pagging.GifsTrendingDataSource
@@ -31,6 +33,8 @@ class MainViewModel(private val context: Application,
     fun initPaging() {
         config = PagedList.Config.Builder()
                 .setEnablePlaceholders(false)
+                .setInitialLoadSizeHint(INITIAL_LOAD_SIZE)
+                .setPrefetchDistance(PREFETCH_SIZE)
                 .setPageSize(LIMIT)
                 .build()
 
