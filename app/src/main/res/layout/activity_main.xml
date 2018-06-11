@@ -9,40 +9,20 @@
             type="com.haretskiy.pavel.gifrandom.viewModels.MainViewModel" />
     </data>
 
-    <android.support.design.widget.CoordinatorLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <android.support.design.widget.AppBarLayout
-            android:background="@android:color/white"
-            android:id="@+id/appbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <include
+            layout="@layout/filter"
+            app:model="@{model}" />
 
-            <android.support.design.widget.CollapsingToolbarLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+        <include
+            layout="@layout/main_content"
+            app:model="@{model}" />
 
-                <include
-                    layout="@layout/filter"
-                    app:model="@{model}" />
-
-            </android.support.design.widget.CollapsingToolbarLayout>
-
-        </android.support.design.widget.AppBarLayout>
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-            <include
-                layout="@layout/main_content"
-                app:model="@{model}" />
-
-        </FrameLayout>
-    </android.support.design.widget.CoordinatorLayout>
+    </LinearLayout>
 
 
 </layout>
