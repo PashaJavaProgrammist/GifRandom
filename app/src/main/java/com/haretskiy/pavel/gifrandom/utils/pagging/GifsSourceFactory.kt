@@ -1,6 +1,7 @@
 package com.haretskiy.pavel.gifrandom.utils.pagging
 
 import android.arch.paging.DataSource
+import com.haretskiy.pavel.gifrandom.DEFAULT_RATING
 import com.haretskiy.pavel.gifrandom.EMPTY_STRING
 import com.haretskiy.pavel.gifrandom.data.Repository
 
@@ -8,7 +9,7 @@ class GifsSourceFactory(private val repository: Repository) : DataSource.Factory
 
     var callback = object : GifsDataSource.GifsLoadedCallback {}
     private lateinit var dataSource: GifsDataSource
-    var rating = "Y"
+    var rating = DEFAULT_RATING
     var word: String = EMPTY_STRING
 
     fun initCallback(callback: GifsDataSource.GifsLoadedCallback): GifsSourceFactory {
