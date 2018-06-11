@@ -9,7 +9,7 @@ import com.haretskiy.pavel.gifrandom.R
 import com.haretskiy.pavel.gifrandom.adapters.GifAdapter
 import com.haretskiy.pavel.gifrandom.databinding.ActivityMainBinding
 import com.haretskiy.pavel.gifrandom.viewModels.MainViewModel
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.main_content.*
 import org.koin.android.architecture.ext.viewModel
 import org.koin.android.ext.android.inject
 
