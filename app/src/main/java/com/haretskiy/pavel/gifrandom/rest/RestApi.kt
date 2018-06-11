@@ -10,14 +10,12 @@ import retrofit2.http.Query
 interface RestApi {
 
     @GET("gifs/trending")
-    fun loadGifs(@Query("api_key") aipKey: String,
-                 @Query("limit") limit: Int,
+    fun loadGifs(@Query("limit") limit: Int,
                  @Query("rating") rating: String,
                  @Query("offset") offset: String = ZERO_OFFSET): Observable<GifResponse>
 
     @GET("gifs/search")
-    fun loadGifsBySearchWord(@Query("api_key") apiKey: String,
-                             @Query("q") searchWord: String,
+    fun loadGifsBySearchWord(@Query("q") searchWord: String,
                              @Query("limit") limit: Int,
                              @Query("rating") rating: String,
                              @Query("offset") offset: String = ZERO_OFFSET): Observable<GifResponse>

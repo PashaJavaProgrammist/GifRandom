@@ -6,6 +6,7 @@ import okhttp3.Interceptor
 import okhttp3.Response
 import okhttp3.ResponseBody
 
+
 class JsonLoggingInterceptor : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response? {
@@ -13,9 +14,13 @@ class JsonLoggingInterceptor : Interceptor {
         try {
             val t1 = System.nanoTime()
 
-            Log.d(START, "Sending request ${request.url()} Headers: ${request.headers()}")
+            val url = request.url().newBuilder().addQueryParameter("apikey", API_KEY).build()
+            val requestBuilder = request.newBuilder().url(url)
+            val newRequest = requestBuilder.build()
 
-            val response = chain.proceed(request)
+            Log.d(START, "Sending request ${newRequest.url()} Headers: ${newRequest.headers()}")
+
+            val response = chain.proceed(newRequest)
 
             val responseBodyString = response.body()?.string() ?: EMPTY_STRING
 
