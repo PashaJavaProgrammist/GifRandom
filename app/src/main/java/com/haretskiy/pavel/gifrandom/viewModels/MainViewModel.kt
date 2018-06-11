@@ -56,6 +56,7 @@ class MainViewModel(private val context: Application,
         factory.rating = getCurrentRating()
         factory.word = searchWord.get() ?: EMPTY_STRING
         factory.invalidate()
+        //todo: problem with position
     }
 
     @Suppress("UNUSED_PARAMETER")

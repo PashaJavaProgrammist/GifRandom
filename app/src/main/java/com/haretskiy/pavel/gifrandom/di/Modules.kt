@@ -6,7 +6,7 @@ import com.haretskiy.pavel.gifrandom.BUNDLE_KEY_URL
 import com.haretskiy.pavel.gifrandom.adapters.GifAdapter
 import com.haretskiy.pavel.gifrandom.data.Repository
 import com.haretskiy.pavel.gifrandom.data.RepositoryImpl
-import com.haretskiy.pavel.gifrandom.rest.JsonLoggingInterceptor
+import com.haretskiy.pavel.gifrandom.rest.JsonInterceptor
 import com.haretskiy.pavel.gifrandom.rest.RestApi
 import com.haretskiy.pavel.gifrandom.rest.RestApiImpl
 import com.haretskiy.pavel.gifrandom.utils.*
@@ -26,7 +26,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 
 val restModule: Module = applicationContext {
-    bean { OkHttpClient.Builder().addInterceptor(JsonLoggingInterceptor()).build() }
+    bean { OkHttpClient.Builder().addInterceptor(JsonInterceptor()).build() }
     bean { GsonBuilder().setLenient().create() }
     bean {
         Retrofit.Builder()
