@@ -23,6 +23,7 @@ class MainViewModel(private val context: Application,
             .setPrefetchDistance(PREFETCH_SIZE)
             .setPageSize(LIMIT)
             .build()
+
     val pagedListLiveData = LivePagedListBuilder(
             factory.initCallback(object : GifsDataSource.GifsLoadedCallback {
                 override fun onStartInitialLoad() {
