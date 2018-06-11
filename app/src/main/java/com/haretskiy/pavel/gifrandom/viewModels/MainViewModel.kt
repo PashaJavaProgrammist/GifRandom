@@ -9,12 +9,9 @@ import android.databinding.ObservableField
 import android.databinding.ObservableInt
 import android.view.View
 import android.widget.AdapterView
-import com.haretskiy.pavel.gifrandom.INITIAL_LOAD_SIZE
-import com.haretskiy.pavel.gifrandom.LIMIT
-import com.haretskiy.pavel.gifrandom.PREFETCH_SIZE
-import com.haretskiy.pavel.gifrandom.R
+import com.haretskiy.pavel.gifrandom.*
+import com.haretskiy.pavel.gifrandom.utils.pagging.GifsDataSource
 import com.haretskiy.pavel.gifrandom.utils.pagging.GifsSourceFactory
-import com.haretskiy.pavel.gifrandom.utils.pagging.GifsTrendingDataSource
 import java.util.concurrent.Executors
 
 
@@ -37,7 +34,7 @@ class MainViewModel(private val context: Application,
                 .build()
 
         pagedListLiveData = LivePagedListBuilder(
-                factory.initCallback(object : GifsTrendingDataSource.GifsLoadedCallback {
+                factory.initCallback(object : GifsDataSource.GifsLoadedCallback {
                     override fun onStartInitialLoad() {
                         progress.set(View.VISIBLE)
                     }
@@ -56,8 +53,8 @@ class MainViewModel(private val context: Application,
     }
 
     fun onClickSearch(@Suppress("UNUSED_PARAMETER") v: View) {
-        //        todo: need to search by new params
         factory.rating = getCurrentRating()
+        factory.word = searchWord.get() ?: EMPTY_STRING
         factory.invalidate()
     }
 
