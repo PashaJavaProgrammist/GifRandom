@@ -1,6 +1,7 @@
 package com.haretskiy.pavel.gifrandom.activities
 
 import android.arch.lifecycle.Observer
+import android.arch.paging.LivePagedListBuilder
 import android.arch.paging.PagedList
 import android.databinding.DataBindingUtil
 import android.os.Bundle
@@ -8,6 +9,7 @@ import android.support.v7.app.AppCompatActivity
 import com.haretskiy.pavel.gifrandom.LIMIT
 import com.haretskiy.pavel.gifrandom.R
 import com.haretskiy.pavel.gifrandom.adapters.GifAdapter
+import com.haretskiy.pavel.gifrandom.data.Repository
 import com.haretskiy.pavel.gifrandom.databinding.ActivityMainBinding
 import com.haretskiy.pavel.gifrandom.utils.*
 import com.haretskiy.pavel.gifrandom.viewModels.MainViewModel
@@ -25,6 +27,7 @@ class MainActivity : AppCompatActivity() {
     private val diffCallBack: DiffCallBack by inject()
     private val gifsDataSource: GifsDataSource by inject()
     private val mainThreadExecutor: MainThreadExecutor by inject()
+    private val repository: Repository by inject()
 
     private var adapter = GifAdapter(diffCallBack, emptyList(), imageLoader, router)
 
@@ -39,7 +42,7 @@ class MainActivity : AppCompatActivity() {
 
         initRecyclerView()
 
-        initObservers()
+//        initObservers()
 
 //        loadTrendingGifs()
     }
@@ -48,34 +51,46 @@ class MainActivity : AppCompatActivity() {
         mainViewModel.loadTrendingGifs()
     }
 
-    private fun initObservers() {
-        mainViewModel.updateLiveData.observe(this, Observer {
-            if (it == true) binding.invalidateAll()
-        })
-
-        mainViewModel.gifsLiveData.observe(this, Observer {
-            if (it != null) {
-                adapter.gifsList = it
-                adapter.notifyDataSetChanged()
-            }
-        })
-    }
+//    private fun initObservers() {
+//        mainViewModel.updateLiveData.observe(this, Observer {
+//            if (it == true) binding.invalidateAll()
+//        })
+//
+//        mainViewModel.gifsLiveData.observe(this, Observer {
+//            if (it != null) {
+//                adapter.gifsList = it
+//                adapter.notifyDataSetChanged()
+//            }
+//        })
+//    }
 
     private fun initRecyclerView() {
+
+        val factory = GifsSourceFactory(repository)
 
         val config = PagedList.Config.Builder()
                 .setEnablePlaceholders(false)
                 .setPageSize(LIMIT)
                 .build()
 
-        val pagedList = PagedList.Builder(gifsDataSource, config)
-                .setNotifyExecutor { mainThreadExecutor }
-                .setFetchExecutor { Executors.newSingleThreadExecutor() }
-//                .setMainThreadExecutor(mainThreadExecutor)
-//                .setBackgroundThreadExecutor(Executors.newSingleThreadExecutor())
+        val pagedListLiveData = LivePagedListBuilder(factory, config)
+                .setFetchExecutor(Executors.newSingleThreadExecutor())
                 .build()
 
-        adapter.submitList(pagedList)
+        pagedListLiveData.observe(this, object : Observer<PagedList<String>> {
+            override fun onChanged(urls: PagedList<String>?) {
+                adapter.submitList(urls)
+            }
+        })
+
+//        val pagedList = PagedList.Builder(gifsDataSource, config)
+//                .setNotifyExecutor { mainThreadExecutor }
+//                .setFetchExecutor { Executors.newSingleThreadExecutor() }
+////                .setMainThreadExecutor(mainThreadExecutor)
+////                .setBackgroundThreadExecutor(Executors.newSingleThreadExecutor())
+//                .build()
+
+//        adapter.submitList(pagedList)
         rv_gifs.adapter = adapter
     }
 

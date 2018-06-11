@@ -14,7 +14,7 @@ import com.haretskiy.pavel.gifrandom.views.GifHolder
 
 
 class GifAdapter(diffCallback: DiffCallBack,
-                 var gifsList: List<String>,
+                 private var gifsList: List<String>,
                  private val imageLoader: ImageLoader,
                  private val router: Router) : PagedListAdapter<String, GifHolder>(diffCallback) {
 
@@ -25,6 +25,6 @@ class GifAdapter(diffCallback: DiffCallBack,
     }
 
     override fun onBindViewHolder(holder: GifHolder, position: Int) {
-        holder.bindGif(gifsList[position])
+        if (gifsList.isNotEmpty()) holder.bindGif(gifsList[position])
     }
 }
