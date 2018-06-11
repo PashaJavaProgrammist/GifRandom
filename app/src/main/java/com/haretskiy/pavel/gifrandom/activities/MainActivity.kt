@@ -31,7 +31,6 @@ class MainActivity : AppCompatActivity() {
         binding.model = mainViewModel
 
         initRecyclerView()
-        initObservers()
     }
 
     private fun initRecyclerView() {
@@ -40,14 +39,6 @@ class MainActivity : AppCompatActivity() {
             adapter.submitList(urls)
         })
         rv_gifs.adapter = adapter
-    }
-
-    private fun initObservers() {
-        mainViewModel.notifyRatingSelectedLiveData.observe(this, Observer {
-            if (it == true) {
-                //todo: need to refresh RV with new data(new rating or new word)
-            }
-        })
     }
 
 }
