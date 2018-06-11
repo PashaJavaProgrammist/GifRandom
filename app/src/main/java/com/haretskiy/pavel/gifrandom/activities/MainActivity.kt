@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
     private fun initObservers() {
         mainViewModel.invalidateLiveData.observe(this, Observer {
             if (it == true) {
-                rv_gifs.invalidate()
+                //todo: need to refresh RV with new data(new rating or new word)
             }
         })
     }

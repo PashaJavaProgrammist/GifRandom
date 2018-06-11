@@ -57,6 +57,7 @@ class MainViewModel(private val context: Application,
 
     @Suppress("UNUSED_PARAMETER")
     fun onRatingSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        //        todo: need to search by new rating
         invalidateLiveData.postValue(true)
     }
 
