@@ -48,7 +48,9 @@ class MainViewModel(private val context: Application,
                     override fun onFinishInitialLoad() {
                         progress.set(View.GONE)
                     }
-                }), config).setFetchExecutor(Executors.newSingleThreadExecutor()).build()
+                }), config)
+                .setFetchExecutor(Executors.newSingleThreadExecutor())
+                .build()
     }
 
     fun onClickSearch(@Suppress("UNUSED_PARAMETER") v: View) {

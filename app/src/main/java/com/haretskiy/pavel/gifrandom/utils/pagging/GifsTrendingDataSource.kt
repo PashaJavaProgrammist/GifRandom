@@ -14,7 +14,6 @@ class GifsTrendingDataSource(private val repository: Repository, var gifsLoadedC
                 callback.onResult(list)
                 gifsLoadedCallback.onFinishPageLoad()
             }
-
         })
     }
 
