@@ -7,6 +7,7 @@ const val RESPONSE = "RESPONSE"
 
 const val EMPTY_STRING = ""
 const val DEFAULT_RATING = "Y"
+const val ZERO = 0
 
 const val BASE_URL = "https://api.giphy.com/v1/"
 const val API_KEY = "ixOZB0aOMOF7Ivx1vuTIBAeXdksNdGTB"

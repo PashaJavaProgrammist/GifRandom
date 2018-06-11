@@ -22,7 +22,7 @@ class MainViewModel(private val context: Application,
     lateinit var pagedListLiveData: LiveData<PagedList<String>>
 
     val searchWord: ObservableField<String> = ObservableField()
-    val ratingSelectedPos = ObservableInt(0)
+    val ratingSelectedPos = ObservableInt(ZERO)
     val progress = ObservableInt(View.VISIBLE)
 
     fun initPaging() {
