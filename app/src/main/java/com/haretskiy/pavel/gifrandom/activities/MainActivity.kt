@@ -37,17 +37,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerView() {
-
         mainViewModel.pagedListLiveData.observe(this, Observer<PagedList<String>> { urls ->
             adapter.submitList(urls)
         })
-        rv_gifs.adapter = adapter
-
         mainViewModel.positLiveData.observe(this, Observer {
             if (it == true) {
                 rv_gifs.scrollToPosition(ZERO)
             }
         })
+        rv_gifs.adapter = adapter
     }
 
     private fun initToolbar() {

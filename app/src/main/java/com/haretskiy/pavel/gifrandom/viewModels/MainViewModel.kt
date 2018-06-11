@@ -46,8 +46,6 @@ class MainViewModel(private val context: Application,
 
     val positLiveData = MutableLiveData<Boolean>()
 
-    private lateinit var binding: ActivityMainBinding
-
     private fun getCurrentRating(): String {
         val ratings = context.resources.getStringArray(R.array.ratings)
         return ratings[ratingSelectedPos.get()]
@@ -70,7 +68,6 @@ class MainViewModel(private val context: Application,
     }
 
     fun setBinding(binding: ActivityMainBinding) {
-        this.binding = binding
         binding.appbar.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
             if (Math.abs(verticalOffset) - appBarLayout.totalScrollRange >= 0) {
                 //  Collapse
