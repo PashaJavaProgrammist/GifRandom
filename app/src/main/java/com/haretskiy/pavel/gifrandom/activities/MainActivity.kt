@@ -34,7 +34,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun initRecyclerView() {
 
-        mainViewModel.pagedListLiveData.observe(this, Observer<PagedList<String>> { urls -> adapter.submitList(urls) })
+        mainViewModel.pagedListLiveData.observe(this, Observer<PagedList<String>> { urls ->
+            adapter.submitList(urls)
+        })
 
         rv_gifs.adapter = adapter
     }

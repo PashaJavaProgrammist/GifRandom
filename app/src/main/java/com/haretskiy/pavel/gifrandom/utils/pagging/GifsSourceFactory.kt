@@ -5,5 +5,12 @@ import com.haretskiy.pavel.gifrandom.data.Repository
 
 class GifsSourceFactory(private val repository: Repository) : DataSource.Factory<Int, String>() {
 
-    override fun create(): DataSource<Int, String> = GifsTrendingDataSource(repository)
+    var callback = object : GifsTrendingDataSource.GifsLoadedCallback {}
+
+    fun initCallback(callback: GifsTrendingDataSource.GifsLoadedCallback): GifsSourceFactory {
+        this.callback = callback
+        return this
+    }
+
+    override fun create(): DataSource<Int, String> = GifsTrendingDataSource(repository, callback)
 }
