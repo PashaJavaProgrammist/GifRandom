@@ -11,7 +11,7 @@ class RepositoryImpl(
         private val restApi: RestApiImpl) : Repository {
 
     override fun loadGifs(rating: String, offset: String, resultCallback: ResultCallback) {
-        transformToListString(restApi.loadGifs(rating))
+        transformToListString(restApi.loadGifs(rating, offset))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -23,7 +23,7 @@ class RepositoryImpl(
     }
 
     override fun loadGifsByWord(word: String, rating: String, offset: String, resultCallback: ResultCallback) {
-        transformToListString(restApi.loadGifsByWord(word, rating))
+        transformToListString(restApi.loadGifsByWord(word, rating, offset))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

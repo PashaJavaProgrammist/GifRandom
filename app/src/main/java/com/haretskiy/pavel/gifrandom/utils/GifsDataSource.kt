@@ -19,7 +19,7 @@ class GifsDataSource(private val repository: Repository) : PositionalDataSource<
     override fun loadInitial(params: LoadInitialParams, callback: LoadInitialCallback<String>) {
         repository.loadGifs("Y", ZERO_OFFSET, object : RepositoryImpl.ResultCallback {
             override fun onResult(list: List<String>) {
-                callback.onResult(list, 0)
+                callback.onResult(list, params.requestedStartPosition)
             }
         })
     }
