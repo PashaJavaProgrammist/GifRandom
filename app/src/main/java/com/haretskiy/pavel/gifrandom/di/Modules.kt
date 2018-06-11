@@ -44,7 +44,6 @@ val appModule: Module = applicationContext {
     bean { RepositoryImpl(get()) as Repository }
     bean { DiffCallBack() }
     factory { GifsDataSource(get()) }
-    bean { MainThreadExecutor() }
 }
 
 val viewModelModel: Module = applicationContext {

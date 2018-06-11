@@ -5,6 +5,7 @@ import android.arch.paging.PagedListAdapter
 import android.databinding.DataBindingUtil
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import com.haretskiy.pavel.gifrandom.EMPTY_STRING
 import com.haretskiy.pavel.gifrandom.R
 import com.haretskiy.pavel.gifrandom.databinding.ItemHolderBinding
 import com.haretskiy.pavel.gifrandom.utils.DiffCallBack
@@ -14,7 +15,6 @@ import com.haretskiy.pavel.gifrandom.views.GifHolder
 
 
 class GifAdapter(diffCallback: DiffCallBack,
-                 private var gifsList: List<String>,
                  private val imageLoader: ImageLoader,
                  private val router: Router) : PagedListAdapter<String, GifHolder>(diffCallback) {
 
@@ -25,6 +25,6 @@ class GifAdapter(diffCallback: DiffCallBack,
     }
 
     override fun onBindViewHolder(holder: GifHolder, position: Int) {
-        if (gifsList.isNotEmpty()) holder.bindGif(gifsList[position])
+        holder.bindGif(getItem(position) ?: EMPTY_STRING)
     }
 }
