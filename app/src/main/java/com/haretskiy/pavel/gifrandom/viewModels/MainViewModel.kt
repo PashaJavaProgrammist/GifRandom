@@ -22,7 +22,7 @@ class MainViewModel(private val context: Application,
 
     private lateinit var config: PagedList.Config
     lateinit var pagedListLiveData: LiveData<PagedList<String>>
-    val invalidateLiveData = MutableLiveData<Boolean>()
+    val notifyRatingSelectedLiveData = MutableLiveData<Boolean>()
 
     val searchWord: ObservableField<String> = ObservableField()
     val ratingSelectedPos = ObservableInt(0)
@@ -60,7 +60,7 @@ class MainViewModel(private val context: Application,
     @Suppress("UNUSED_PARAMETER")
     fun onRatingSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         //        todo: need to search by new rating
-        invalidateLiveData.postValue(true)
+        notifyRatingSelectedLiveData.postValue(true)
     }
 
 }

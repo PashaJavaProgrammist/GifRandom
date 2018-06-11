@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initObservers() {
-        mainViewModel.invalidateLiveData.observe(this, Observer {
+        mainViewModel.notifyRatingSelectedLiveData.observe(this, Observer {
             if (it == true) {
                 //todo: need to refresh RV with new data(new rating or new word)
             }
