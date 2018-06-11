@@ -2,7 +2,6 @@ package com.haretskiy.pavel.gifrandom.viewModels
 
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
-import android.arch.lifecycle.LiveData
 import android.arch.paging.LivePagedListBuilder
 import android.arch.paging.PagedList
 import android.databinding.ObservableField
@@ -18,34 +17,28 @@ import java.util.concurrent.Executors
 class MainViewModel(private val context: Application,
                     private val factory: GifsSourceFactory) : AndroidViewModel(context) {
 
-    private lateinit var config: PagedList.Config
-    lateinit var pagedListLiveData: LiveData<PagedList<String>>
+    private val config = PagedList.Config.Builder()
+            .setEnablePlaceholders(false)
+            .setInitialLoadSizeHint(INITIAL_LOAD_SIZE)
+            .setPrefetchDistance(PREFETCH_SIZE)
+            .setPageSize(LIMIT)
+            .build()
+    val pagedListLiveData = LivePagedListBuilder(
+            factory.initCallback(object : GifsDataSource.GifsLoadedCallback {
+                override fun onStartInitialLoad() {
+                    progress.set(View.VISIBLE)
+                }
+
+                override fun onFinishInitialLoad() {
+                    progress.set(View.GONE)
+                }
+            }), config)
+            .setFetchExecutor(Executors.newSingleThreadExecutor())
+            .build()
 
     val searchWord: ObservableField<String> = ObservableField()
     val ratingSelectedPos = ObservableInt(ZERO)
     val progress = ObservableInt(View.VISIBLE)
-
-    fun initPaging() {
-        config = PagedList.Config.Builder()
-                .setEnablePlaceholders(false)
-                .setInitialLoadSizeHint(INITIAL_LOAD_SIZE)
-                .setPrefetchDistance(PREFETCH_SIZE)
-                .setPageSize(LIMIT)
-                .build()
-
-        pagedListLiveData = LivePagedListBuilder(
-                factory.initCallback(object : GifsDataSource.GifsLoadedCallback {
-                    override fun onStartInitialLoad() {
-                        progress.set(View.VISIBLE)
-                    }
-
-                    override fun onFinishInitialLoad() {
-                        progress.set(View.GONE)
-                    }
-                }), config)
-                .setFetchExecutor(Executors.newSingleThreadExecutor())
-                .build()
-    }
 
     private fun getCurrentRating(): String {
         val ratings = context.resources.getStringArray(R.array.ratings)
