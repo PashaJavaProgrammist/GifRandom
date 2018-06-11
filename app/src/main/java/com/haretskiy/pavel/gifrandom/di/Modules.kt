@@ -3,12 +3,15 @@ package com.haretskiy.pavel.gifrandom.di
 import com.google.gson.GsonBuilder
 import com.haretskiy.pavel.gifrandom.BASE_URL
 import com.haretskiy.pavel.gifrandom.BUNDLE_KEY_URL
+import com.haretskiy.pavel.gifrandom.adapters.GifAdapter
 import com.haretskiy.pavel.gifrandom.data.Repository
 import com.haretskiy.pavel.gifrandom.data.RepositoryImpl
 import com.haretskiy.pavel.gifrandom.rest.JsonLoggingInterceptor
 import com.haretskiy.pavel.gifrandom.rest.RestApi
 import com.haretskiy.pavel.gifrandom.rest.RestApiImpl
 import com.haretskiy.pavel.gifrandom.utils.*
+import com.haretskiy.pavel.gifrandom.utils.pagging.DiffCallBack
+import com.haretskiy.pavel.gifrandom.utils.pagging.GifsSourceFactory
 import com.haretskiy.pavel.gifrandom.viewModels.DetailViewModel
 import com.haretskiy.pavel.gifrandom.viewModels.MainViewModel
 import okhttp3.OkHttpClient
@@ -43,11 +46,12 @@ val appModule: Module = applicationContext {
     bean { RouterImpl(androidApplication()) as Router }
     bean { RepositoryImpl(get()) as Repository }
     bean { DiffCallBack() }
-    factory { GifsDataSource(get()) }
+    bean { GifsSourceFactory(get()) }
+    factory { GifAdapter(get(), get(), get()) }
 }
 
 val viewModelModel: Module = applicationContext {
-    viewModel { MainViewModel(androidApplication(), get(), get()) }
+    viewModel { MainViewModel(androidApplication(), get()) }
     viewModel { params: ParameterProvider ->
         DetailViewModel(get(), params[BUNDLE_KEY_URL])
     }

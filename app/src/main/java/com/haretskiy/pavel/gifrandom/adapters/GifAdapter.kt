@@ -8,9 +8,9 @@ import android.view.ViewGroup
 import com.haretskiy.pavel.gifrandom.EMPTY_STRING
 import com.haretskiy.pavel.gifrandom.R
 import com.haretskiy.pavel.gifrandom.databinding.ItemHolderBinding
-import com.haretskiy.pavel.gifrandom.utils.DiffCallBack
 import com.haretskiy.pavel.gifrandom.utils.ImageLoader
 import com.haretskiy.pavel.gifrandom.utils.Router
+import com.haretskiy.pavel.gifrandom.utils.pagging.DiffCallBack
 import com.haretskiy.pavel.gifrandom.views.GifHolder
 
 
