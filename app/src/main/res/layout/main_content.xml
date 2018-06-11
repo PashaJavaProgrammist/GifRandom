@@ -16,43 +16,12 @@
         android:focusable="true"
         android:focusableInTouchMode="true">
 
-        <LinearLayout
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_gifs"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:hint="@string/search"
-                android:inputType="text"
-                android:text="@={model.searchWord}" />
-
-            <Spinner
-                android:id="@+id/rating"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:entries="@array/ratings"
-                android:onItemSelected="@{model::onRatingSelected}"
-                android:selectedItemPosition="@={model.ratingSelectedPos}" />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:onClick="@{model::onClickSearch}"
-                android:text="@string/search" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_gifs"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="50"
-                android:scrollbars="vertical"
-                app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
-        </LinearLayout>
+            android:scrollbars="vertical"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -66,6 +35,5 @@
                 android:padding="100dp" />
         </FrameLayout>
     </FrameLayout>
-
 
 </layout>
