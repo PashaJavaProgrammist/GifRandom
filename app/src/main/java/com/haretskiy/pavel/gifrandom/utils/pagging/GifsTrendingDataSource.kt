@@ -29,8 +29,8 @@ class GifsTrendingDataSource(private val repository: Repository, var gifsLoadedC
 
     interface GifsLoadedCallback {
         fun onStartInitialLoad() {}
-        fun onStartPageLoad() {}
         fun onFinishInitialLoad() {}
+        fun onStartPageLoad() {}
         fun onFinishPageLoad() {}
     }
 }
