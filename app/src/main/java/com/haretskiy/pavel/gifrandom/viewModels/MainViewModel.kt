@@ -28,11 +28,6 @@ class MainViewModel(private val context: Application,
     val ratingSelectedPos = ObservableInt(0)
     val progress = ObservableInt(View.VISIBLE)
 
-    private fun getCurrentRating(): String {
-        val ratings = context.resources.getStringArray(R.array.ratings)
-        return ratings[ratingSelectedPos.get()]
-    }
-
     fun initPaging() {
         config = PagedList.Config.Builder()
                 .setEnablePlaceholders(false)
@@ -51,6 +46,11 @@ class MainViewModel(private val context: Application,
                 }), config)
                 .setFetchExecutor(Executors.newSingleThreadExecutor())
                 .build()
+    }
+
+    private fun getCurrentRating(): String {
+        val ratings = context.resources.getStringArray(R.array.ratings)
+        return ratings[ratingSelectedPos.get()]
     }
 
     fun onClickSearch(@Suppress("UNUSED_PARAMETER") v: View) {
