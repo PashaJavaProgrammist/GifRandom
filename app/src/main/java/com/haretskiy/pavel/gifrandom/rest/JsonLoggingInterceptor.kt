@@ -45,7 +45,7 @@ class JsonLoggingInterceptor : Interceptor {
 
             return response.newBuilder().body(ResponseBody.create(responseBody?.contentType(), responseBodyString.toByteArray())).build()
         } catch (ex: Exception) {
-            return chain.proceed(request)
+            return Response.Builder().build()
         }
     }
 }
