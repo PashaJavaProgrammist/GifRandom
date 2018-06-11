@@ -10,7 +10,7 @@ import io.reactivex.schedulers.Schedulers
 class RepositoryImpl(
         private val restApi: RestApiImpl) : Repository {
 
-    override fun loadGifs(rating: String, offset: String, resultCallback: ResultCallback) {
+    override fun loadTrendingGifs(rating: String, offset: String, resultCallback: ResultCallback) {
         transformToListString(restApi.loadGifs(rating, offset))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
