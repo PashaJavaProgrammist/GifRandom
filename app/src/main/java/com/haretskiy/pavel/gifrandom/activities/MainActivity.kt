@@ -27,9 +27,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        mainViewModel.initPaging()
         binding.model = mainViewModel
 
         initRecyclerView()
+        initObservers()
     }
 
     private fun initRecyclerView() {
@@ -37,8 +39,15 @@ class MainActivity : AppCompatActivity() {
         mainViewModel.pagedListLiveData.observe(this, Observer<PagedList<String>> { urls ->
             adapter.submitList(urls)
         })
-
         rv_gifs.adapter = adapter
+    }
+
+    private fun initObservers() {
+        mainViewModel.invalidateLiveData.observe(this, Observer {
+            if (it == true) {
+                rv_gifs.invalidate()
+            }
+        })
     }
 
 }
