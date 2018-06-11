@@ -7,6 +7,7 @@ class GifsSourceFactory(private val repository: Repository) : DataSource.Factory
 
     var callback = object : GifsTrendingDataSource.GifsLoadedCallback {}
     private lateinit var dataSource: GifsTrendingDataSource
+    var rating = "Y"
 
     fun initCallback(callback: GifsTrendingDataSource.GifsLoadedCallback): GifsSourceFactory {
         this.callback = callback
@@ -14,7 +15,7 @@ class GifsSourceFactory(private val repository: Repository) : DataSource.Factory
     }
 
     override fun create(): DataSource<Int, String> {
-        dataSource = GifsTrendingDataSource(repository, callback)
+        dataSource = GifsTrendingDataSource(repository, callback, rating)
         return dataSource
     }
 

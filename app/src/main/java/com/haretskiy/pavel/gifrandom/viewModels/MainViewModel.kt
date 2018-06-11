@@ -57,6 +57,7 @@ class MainViewModel(private val context: Application,
 
     fun onClickSearch(@Suppress("UNUSED_PARAMETER") v: View) {
         //        todo: need to search by new params
+        factory.rating = getCurrentRating()
         factory.invalidate()
     }
 
