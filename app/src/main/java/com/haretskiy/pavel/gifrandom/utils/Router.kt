@@ -8,4 +8,5 @@ interface Router {
     fun startDetailActivity(url: String)
 
     fun startDetailActivity(context: Context, imageView: View, url: String)
+    fun shareGif(urlStr: String)
 }

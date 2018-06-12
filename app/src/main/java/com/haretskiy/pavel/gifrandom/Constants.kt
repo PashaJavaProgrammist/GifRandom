@@ -21,3 +21,5 @@ const val BUNDLE_KEY_URL = "BUNDLE_KEY_URL"
 
 const val VIEW_NAME_IMAGE = "VIEW_NAME_IMAGE"
 const val START_ANIMATION_DELAY = 600L
+
+const val SHARE_TYPE_TEXT = "text/plain"

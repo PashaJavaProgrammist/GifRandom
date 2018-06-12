@@ -7,6 +7,7 @@ import android.support.v4.app.ActivityOptionsCompat
 import android.support.v4.util.Pair
 import android.view.View
 import com.haretskiy.pavel.gifrandom.BUNDLE_KEY_URL_DETAIL
+import com.haretskiy.pavel.gifrandom.SHARE_TYPE_TEXT
 import com.haretskiy.pavel.gifrandom.VIEW_NAME_IMAGE
 import com.haretskiy.pavel.gifrandom.activities.DetailActivity
 
@@ -32,4 +33,12 @@ class RouterImpl(private var context: Context) : Router {
         context.startActivity(intent, activityOptions.toBundle())
     }
 
+    override fun shareGif(urlStr: String) {
+        val shareIntent = Intent(Intent.ACTION_SEND)
+        shareIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        shareIntent.type = SHARE_TYPE_TEXT
+        shareIntent.putExtra(Intent.EXTRA_TEXT, urlStr)
+
+        context.startActivity(shareIntent)
+    }
 }

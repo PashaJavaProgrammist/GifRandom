@@ -27,8 +27,18 @@
             android:contentDescription="@string/app_name"
             android:onClick="@{gifViewModel::onItemClick}"
             tool:imageLoader="@{gifViewModel.loader}"
-            tool:progress="@{gifViewModel.observableProgressController}"
-            tool:imageUrl="@{gifViewModel.url}" />
+            tool:imageUrl="@{gifViewModel.url}"
+            tool:progress="@{gifViewModel.observableProgressController}" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:contentDescription="@string/app_name"
+            android:onClick="@{gifViewModel::onClickShare}"
+            android:scaleX="0.5"
+            android:scaleY="0.5"
+            android:src="@drawable/ic_share" />
 
         <ProgressBar
             android:id="@+id/progress_bar"

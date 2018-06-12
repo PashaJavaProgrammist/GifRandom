@@ -29,6 +29,11 @@ class GifHolderViewModel(
         router.startDetailActivity(mItemGifBinding.root.context, mItemGifBinding.imageView, urlStr)
     }
 
+    fun onClickShare(@Suppress("UNUSED_PARAMETER") v: View) {
+        router.shareGif(urlStr)
+    }
+
+
     fun initObservers(lifecycleOwner: LifecycleOwner) {
         progressController.subscribeOnProgressChanges(lifecycleOwner, Observer {
             progress.set(if (it == true) View.VISIBLE else View.GONE)
