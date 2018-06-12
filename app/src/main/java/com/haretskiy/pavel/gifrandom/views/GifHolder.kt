@@ -23,5 +23,4 @@ class GifHolder(private val imageLoader: ImageLoader,
         mItemGifBinding.executePendingBindings()
     }
 
-
 }

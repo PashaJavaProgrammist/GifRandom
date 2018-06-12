@@ -55,7 +55,6 @@ class MainViewModel(private val context: Application,
         factory.rating = getCurrentRating()
         factory.word = searchWord.get() ?: EMPTY_STRING
         factory.invalidate()
-        //todo: problem with position
     }
 
     fun onClickFilter(@Suppress("UNUSED_PARAMETER") v: View) {

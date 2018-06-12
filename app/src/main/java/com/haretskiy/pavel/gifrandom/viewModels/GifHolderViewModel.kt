@@ -33,7 +33,6 @@ class GifHolderViewModel(
         router.shareGif(urlStr)
     }
 
-
     fun initObservers(lifecycleOwner: LifecycleOwner) {
         progressController.subscribeOnProgressChanges(lifecycleOwner, Observer {
             progress.set(if (it == true) View.VISIBLE else View.GONE)
