@@ -35,15 +35,27 @@ class GifsDataSource(
         if (word.isEmpty()) {
             repository.loadTrendingGifs(rating, ZERO_OFFSET, object : RepositoryImpl.ResultCallback {
                 override fun onResult(list: List<String>) {
-                    callback.onResult(list, params.requestedStartPosition)
-                    gifsLoadedCallback.onFinishInitialLoad()
+                    try {
+                        var startPos = params.requestedStartPosition
+                        if (startPos < 0) startPos = 0
+                        callback.onResult(list, startPos)
+                        gifsLoadedCallback.onFinishInitialLoad()
+                    } catch (ex: Exception) {
+                        ex.printStackTrace()
+                    }
                 }
             })
         } else {
             repository.loadGifsByWord(word, rating, ZERO_OFFSET, object : RepositoryImpl.ResultCallback {
                 override fun onResult(list: List<String>) {
-                    callback.onResult(list, params.requestedStartPosition)
-                    gifsLoadedCallback.onFinishInitialLoad()
+                    try {
+                        var startPos = params.requestedStartPosition
+                        if (startPos < 0) startPos = 0
+                        callback.onResult(list, startPos)
+                        gifsLoadedCallback.onFinishInitialLoad()
+                    } catch (ex: Exception) {
+                        ex.printStackTrace()
+                    }
                 }
             })
         }
