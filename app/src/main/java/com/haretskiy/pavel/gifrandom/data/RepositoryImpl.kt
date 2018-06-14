@@ -11,23 +11,20 @@ class RepositoryImpl(
         private val restApi: RestApiImpl) : Repository {
 
     override fun loadTrendingGifs(rating: String, offset: String, resultCallback: ResultCallback) {
-        transformToListString(restApi.loadGifs(rating, offset))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        {
-                            if (it != null) {
-                                resultCallback.onResult(it)
-                            }
-                        },
-                        {
-                            resultCallback.onResult(emptyList())
-                        })
+        load(restApi.loadGifs(rating, offset), resultCallback)
     }
 
     override fun loadGifsByWord(word: String, rating: String, offset: String, resultCallback: ResultCallback) {
-        transformToListString(restApi.loadGifsByWord(word, rating, offset))
-                .subscribeOn(Schedulers.io())
+        load(restApi.loadGifsByWord(word, rating, offset), resultCallback)
+    }
+
+    private fun load(obs: Observable<GifResponse>, resultCallback: ResultCallback) {
+        obs.subscribeOn(Schedulers.io())
+                .map {
+                    it.data.map {
+                        it.images?.original?.url ?: EMPTY_STRING
+                    }
+                }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         {
@@ -39,14 +36,6 @@ class RepositoryImpl(
                             resultCallback.onResult(emptyList())
                         })
     }
-
-    private fun transformToListString(response: Observable<GifResponse>): Observable<List<String>> =
-            response.map {
-                val list = it.data.map {
-                    it.images?.original?.url ?: EMPTY_STRING
-                }
-                list
-            }
 
     interface ResultCallback {
         fun onResult(list: List<String>)
