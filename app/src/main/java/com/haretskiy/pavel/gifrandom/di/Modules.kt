@@ -50,7 +50,7 @@ val appModule: Module = applicationContext {
     factory { GifAdapter(get(), get(), get()) }
 }
 
-val viewModelModel: Module = applicationContext {
+val viewModelModule: Module = applicationContext {
     viewModel { MainViewModel(androidApplication(), get()) }
     viewModel { params: ParameterProvider ->
         DetailViewModel(get(), params[BUNDLE_KEY_URL])
@@ -58,6 +58,6 @@ val viewModelModel: Module = applicationContext {
 }
 
 
-val modules = listOf(restModule, appModule, viewModelModel)
+val modules = listOf(restModule, appModule, viewModelModule)
 
 
