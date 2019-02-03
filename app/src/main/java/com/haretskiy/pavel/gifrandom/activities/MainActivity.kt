@@ -12,9 +12,8 @@ import com.haretskiy.pavel.gifrandom.databinding.ActivityMainBinding
 import com.haretskiy.pavel.gifrandom.viewModels.MainViewModel
 import kotlinx.android.synthetic.main.main_content.*
 import kotlinx.android.synthetic.main.toolbar.*
-import org.koin.android.architecture.ext.viewModel
 import org.koin.android.ext.android.inject
-
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
 
