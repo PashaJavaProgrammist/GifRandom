@@ -5,11 +5,11 @@ import android.arch.paging.PagedList
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.widget.Toast
 import com.haretskiy.pavel.gifrandom.R
 import com.haretskiy.pavel.gifrandom.ZERO
 import com.haretskiy.pavel.gifrandom.adapters.GifAdapter
 import com.haretskiy.pavel.gifrandom.databinding.ActivityMainBinding
+import com.haretskiy.pavel.gifrandom.utils.Toaster
 import com.haretskiy.pavel.gifrandom.viewModels.MainViewModel
 import kotlinx.android.synthetic.main.main_content.*
 import kotlinx.android.synthetic.main.toolbar.*
@@ -21,6 +21,8 @@ class MainActivity : AppCompatActivity() {
     private val mainViewModel: MainViewModel by viewModel()
     
     private val adapter: GifAdapter by inject()
+    
+    private val toaster: Toaster by inject()
     
     private val binding: ActivityMainBinding by lazy {
         DataBindingUtil.setContentView(this, R.layout.activity_main) as ActivityMainBinding
@@ -47,9 +49,8 @@ class MainActivity : AppCompatActivity() {
         })
         mainViewModel.observeOnline()
                 .observe(this, Observer {
-                    Toast.makeText(this@MainActivity, if(it == true) getString(R.string.online_state) else getString(
-                                                R.string.offline_state), Toast.LENGTH_SHORT)
-                            .show()
+                    toaster.showToast(if (it == true) getString(R.string.online_state) else getString(
+                            R.string.offline_state))
                 })
         rv_gifs.adapter = adapter
     }
