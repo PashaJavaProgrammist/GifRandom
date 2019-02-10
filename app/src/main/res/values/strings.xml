@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">GifRandom</string>
     <string name="search">Search</string>
+    <string name="online_state">Online</string>
+    <string name="offline_state">Offline</string>
     <string-array name="ratings">
         <item>Y</item>
         <item>G</item>

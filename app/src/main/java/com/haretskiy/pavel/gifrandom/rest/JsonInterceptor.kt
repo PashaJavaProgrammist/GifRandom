@@ -34,14 +34,14 @@ class JsonInterceptor : Interceptor {
                     val max = 4000 * (i + 1)
                     if (max >= length) {
                         Log.d(RESPONSE, "chunk $i of $chunkCount:")
-                        Log.e(RESPONSE, prettyString.substring(4000 * i))
+                        Log.w(RESPONSE, prettyString.substring(4000 * i))
                     } else {
                         Log.d(RESPONSE, "chunk $i of $chunkCount:")
-                        Log.e(RESPONSE, prettyString.substring(4000 * i, max))
+                        Log.w(RESPONSE, prettyString.substring(4000 * i, max))
                     }
                 }
             } else {
-                Log.e(RESPONSE, prettyString)
+                Log.w(RESPONSE, prettyString)
             }
 
             Log.d(END, "Received response for ${response.request().url()} for ${(t2 - t1) / 1e6} milliseconds ")

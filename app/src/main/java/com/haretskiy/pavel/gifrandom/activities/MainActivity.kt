@@ -5,6 +5,7 @@ import android.arch.paging.PagedList
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.widget.Toast
 import com.haretskiy.pavel.gifrandom.R
 import com.haretskiy.pavel.gifrandom.ZERO
 import com.haretskiy.pavel.gifrandom.adapters.GifAdapter
@@ -16,25 +17,25 @@ import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
-
+    
     private val mainViewModel: MainViewModel by viewModel()
-
+    
     private val adapter: GifAdapter by inject()
-
+    
     private val binding: ActivityMainBinding by lazy {
         DataBindingUtil.setContentView(this, R.layout.activity_main) as ActivityMainBinding
     }
-
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        
         binding.model = mainViewModel
         mainViewModel.setBinding(binding)
-
+        
         initRecyclerView()
         initToolbar()
     }
-
+    
     private fun initRecyclerView() {
         mainViewModel.pagedListLiveData.observe(this, Observer<PagedList<String>> { urls ->
             adapter.submitList(urls)
@@ -44,11 +45,17 @@ class MainActivity : AppCompatActivity() {
                 rv_gifs.scrollToPosition(ZERO)
             }
         })
+        mainViewModel.observeOnline()
+                .observe(this, Observer {
+                    Toast.makeText(this@MainActivity, if(it == true) getString(R.string.online_state) else getString(
+                                                R.string.offline_state), Toast.LENGTH_SHORT)
+                            .show()
+                })
         rv_gifs.adapter = adapter
     }
-
+    
     private fun initToolbar() {
         setSupportActionBar(toolbar)
     }
-
+    
 }

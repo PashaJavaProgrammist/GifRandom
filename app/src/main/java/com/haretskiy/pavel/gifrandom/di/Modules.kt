@@ -1,5 +1,7 @@
 package com.haretskiy.pavel.gifrandom.di
 
+import android.content.Context
+import android.net.ConnectivityManager
 import com.google.gson.GsonBuilder
 import com.haretskiy.pavel.gifrandom.BASE_URL
 import com.haretskiy.pavel.gifrandom.adapters.GifAdapter
@@ -42,6 +44,10 @@ val restModule: Module = module(definition = {
                 .create(RestApi::class.java)
     }
     single { RestApiImpl(get()) }
+    
+    single { Connectivity(androidApplication(), get()) }
+    
+    factory { androidApplication().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager }
 })
 
 val appModule: Module = module(definition = {
@@ -55,7 +61,7 @@ val appModule: Module = module(definition = {
 })
 
 val viewModelModule: Module = module(definition = {
-    viewModel { MainViewModel(androidApplication(), get()) }
+    viewModel { MainViewModel(androidApplication(), get(), get()) }
     viewModel {parameterList ->
         DetailViewModel(get(), parameterList[0])
     }
