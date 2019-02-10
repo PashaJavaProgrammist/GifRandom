@@ -58,10 +58,20 @@
 # Retain declared checked exceptions for use by a Proxy instance.
 -keepattributes Exceptions
 
-
+#OkHttp
 -keepattributes Signature
 -keepattributes Annotation
 -keep class okhttp3.** { *; }
 -keep interface okhttp3.** { *; }
 -dontwarn okhttp3.**
 -dontwarn okio.**
+
+#Coroutines
+# ServiceLoader support
+        -keepnames class kotlinx.coroutines.internal.MainDispatcherFactory {}
+-keepnames class kotlinx.coroutines.CoroutineExceptionHandler {}
+
+# Most of volatile fields are updated with AFU and should not be mangled
+-keepclassmembernames class kotlinx.** {
+    volatile <fields>;
+}
