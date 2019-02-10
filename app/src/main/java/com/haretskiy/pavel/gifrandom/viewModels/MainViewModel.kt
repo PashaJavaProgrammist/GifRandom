@@ -24,7 +24,7 @@ class MainViewModel(private val context: Application,
             .setEnablePlaceholders(false)
             .setInitialLoadSizeHint(INITIAL_LOAD_SIZE)
             .setPrefetchDistance(PREFETCH_SIZE)
-            .setPageSize(LIMIT)
+            .setPageSize(PAGE_SIZE)
             .build()
     
     val pagedListLiveData =
