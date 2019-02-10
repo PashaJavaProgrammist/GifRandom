@@ -24,7 +24,7 @@ import org.koin.dsl.module.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-val restModule: Module = module(definition = {
+val restModule: Module = module {
     single {
         OkHttpClient.Builder()
                 .addInterceptor(JsonInterceptor())
@@ -48,9 +48,9 @@ val restModule: Module = module(definition = {
     single { Connectivity(androidApplication(), get()) }
     
     factory { androidApplication().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager }
-})
+}
 
-val appModule: Module = module(definition = {
+val appModule: Module = module {
     single { Toaster(androidApplication()) }
     single { ImageLoaderImpl() as ImageLoader }
     single { RouterImpl(androidApplication()) as Router }
@@ -58,14 +58,14 @@ val appModule: Module = module(definition = {
     single { DiffCallBack() }
     single { GifsSourceFactory(get()) }
     factory { GifAdapter(get(), get(), get()) }
-})
+}
 
-val viewModelModule: Module = module(definition = {
+val viewModelModule: Module = module {
     viewModel { MainViewModel(androidApplication(), get(), get()) }
-    viewModel {parameterList ->
+    viewModel { parameterList ->
         DetailViewModel(get(), parameterList[0])
     }
-})
+}
 
 val modules = listOf(restModule, appModule, viewModelModule)
 
