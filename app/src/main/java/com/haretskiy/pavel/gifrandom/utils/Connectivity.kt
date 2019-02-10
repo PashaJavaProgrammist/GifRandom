@@ -8,6 +8,9 @@ import android.net.NetworkInfo
 import android.util.Log
 import com.haretskiy.pavel.gifrandom.distinctUntilChanged
 import com.haretskiy.pavel.gifrandom.map
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 
 class Connectivity(context: Context, private val manager: ConnectivityManager) {
     
@@ -47,6 +50,12 @@ class Connectivity(context: Context, private val manager: ConnectivityManager) {
         return false
     }
     
-    fun onlineChanges() = connectivityLiveData.map { isOnline() }.distinctUntilChanged()
+    private fun isOnlineAsync(): Boolean {
+        return runBlocking {
+            withContext(Dispatchers.Default) { isOnline() }
+        }
+    }
+    
+    fun onlineChanges() = connectivityLiveData.map { isOnlineAsync() }.distinctUntilChanged()
     
 }
