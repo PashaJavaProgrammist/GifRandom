@@ -7,7 +7,6 @@ import com.haretskiy.pavel.gifrandom.BASE_URL
 import com.haretskiy.pavel.gifrandom.adapters.GifAdapter
 import com.haretskiy.pavel.gifrandom.data.Repository
 import com.haretskiy.pavel.gifrandom.data.RepositoryImpl
-import com.haretskiy.pavel.gifrandom.rest.JsonInterceptor
 import com.haretskiy.pavel.gifrandom.rest.RestApi
 import com.haretskiy.pavel.gifrandom.rest.RestApiImpl
 import com.haretskiy.pavel.gifrandom.utils.*
@@ -26,9 +25,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 val restModule: Module = module {
     single {
-        OkHttpClient.Builder()
-                .addInterceptor(JsonInterceptor())
-                .build()
+        OkHttpClient.Builder().build()
     }
     single {
         GsonBuilder().setLenient()

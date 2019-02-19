@@ -46,6 +46,15 @@ class MainViewModel(private val context: Application,
     
     val positLiveData = MutableLiveData<Boolean>()
     
+    init {
+        connectivity.start()
+    }
+    
+    override fun onCleared() {
+        connectivity.stop()
+        super.onCleared()
+    }
+    
     private fun getCurrentRating(): String {
         val ratings = context.resources.getStringArray(R.array.ratings)
         return ratings[ratingSelectedPos.get()]

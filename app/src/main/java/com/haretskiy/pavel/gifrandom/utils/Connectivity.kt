@@ -1,31 +1,62 @@
 package com.haretskiy.pavel.gifrandom.utils
 
-import android.annotation.SuppressLint
+import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.MutableLiveData
 import android.content.Context
+import android.content.Intent
 import android.content.IntentFilter
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.util.Log
 import com.haretskiy.pavel.gifrandom.distinctUntilChanged
-import com.haretskiy.pavel.gifrandom.map
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
+import kotlinx.coroutines.channels.actor
+import kotlin.coroutines.CoroutineContext
 
-class Connectivity(context: Context, private val manager: ConnectivityManager) {
+class Connectivity(context: Context, private val manager: ConnectivityManager) : CoroutineScope {
     
-    private val connectivityLiveData = ConnectivityLiveData(context,
+    private var isStarted = false
+    
+    private val job: Job = Job()
+    
+    override val coroutineContext: CoroutineContext
+        get() = job
+    
+    private val onlineData = MutableLiveData<Boolean>()
+    
+    private val handler = CoroutineExceptionHandler { _, exception ->
+        Log.e("Error", "Caught $exception")
+        exception.printStackTrace()
+    }
+    
+    private val connectActor = actor<Intent>(Dispatchers.Default + handler) {
+        for (intents in channel) {
+            onlineData.postValue(isOnlineAsync())
+        }
+    }
+    
+    fun start() {
+        if (!isStarted) {
+            connectivityListener.start()
+            isStarted = true
+        }
+    }
+    
+    fun stop() {
+        if (isStarted) {
+            connectivityListener.stop()
+            isStarted = false
+            job.cancel()
+        }
+    }
+    
+    private val connectivityListener = ConnectivityListener(context,
+            connectActor,
             IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION),
             null,
             null)
     
-    companion object {
-        const val TAG = "Connectivity"
-    }
-    
-    @Suppress("DEPRECATION")
-    @SuppressLint("MissingPermission")
-    fun isOnline(): Boolean {
+    private fun isOnline(): Boolean {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             val activeNetworks = manager.allNetworks
             for (network in activeNetworks) {
@@ -52,10 +83,16 @@ class Connectivity(context: Context, private val manager: ConnectivityManager) {
     
     private fun isOnlineAsync(): Boolean {
         return runBlocking {
-            withContext(Dispatchers.Default) { isOnline() }
+            withContext(Dispatchers.Default + handler) { isOnline() }
         }
     }
     
-    fun onlineChanges() = connectivityLiveData.map { isOnlineAsync() }.distinctUntilChanged()
+    fun onlineChanges(): LiveData<Boolean> {
+        return onlineData.distinctUntilChanged()
+    }
+    
+    companion object {
+        const val TAG = "Connectivity"
+    }
     
 }
