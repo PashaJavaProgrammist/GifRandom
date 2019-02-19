@@ -5,6 +5,7 @@ import com.haretskiy.pavel.gifrandom.EMPTY_STRING
 import com.haretskiy.pavel.gifrandom.models.GifResponse
 import com.haretskiy.pavel.gifrandom.rest.RestApiImpl
 import kotlinx.coroutines.*
+import java.net.ConnectException
 
 class RepositoryImpl(private val restApi: RestApiImpl) : Repository {
     
@@ -18,20 +19,26 @@ class RepositoryImpl(private val restApi: RestApiImpl) : Repository {
             rating,
             offset))
     
-    private fun load(deferred: Deferred<GifResponse>): List<String> = runBlocking {
-        GlobalScope.async(CoroutineExceptionHandler { _, exception ->
-            Log.d("RepositoryImpl", "Caught $exception")
-        }, CoroutineStart.DEFAULT, null, {
-            val responseData = deferred.await()
-            Log.d("RepositoryImpl", "On success")
-            convertData(responseData)
-        })
-                .await()
+    private val handler = CoroutineExceptionHandler { _, exception ->
+        Log.d("RepositoryImpl", "Caught $exception")
+        exception.printStackTrace()
     }
     
-    private suspend fun convertData(responseData: GifResponse) = GlobalScope.async(Dispatchers.Default,
-            CoroutineStart.DEFAULT,
-            null,
-            { responseData.data.map { it.images?.original?.url ?: EMPTY_STRING } }).await()
+    private fun load(deferred: Deferred<GifResponse>): List<String> = runBlocking(Dispatchers.Default + handler) {
+        try {
+            val responseData = deferred.await()
+            Log.d("RepositoryImpl", "On success")
+            convertDataAsync(responseData).await()
+        } catch (ex: ConnectException) {
+            Log.d("RepositoryImpl", "On error$ex")
+            emptyList<String>()
+        }
+    }
+    
+    private fun convertDataAsync(responseData: GifResponse) = GlobalScope.async(Dispatchers.Default + handler) {
+        responseData.data.map {
+            it.images?.original?.url ?: EMPTY_STRING
+        }
+    }
     
 }
