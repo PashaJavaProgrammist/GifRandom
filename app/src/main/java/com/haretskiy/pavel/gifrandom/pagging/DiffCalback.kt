@@ -1,4 +1,4 @@
-package com.haretskiy.pavel.gifrandom.utils.pagging
+package com.haretskiy.pavel.gifrandom.pagging
 
 import android.support.v7.util.DiffUtil
 

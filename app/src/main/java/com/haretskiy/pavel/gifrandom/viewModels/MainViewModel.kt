@@ -11,9 +11,9 @@ import android.view.View
 import android.widget.AdapterView
 import com.haretskiy.pavel.gifrandom.*
 import com.haretskiy.pavel.gifrandom.databinding.ActivityMainBinding
+import com.haretskiy.pavel.gifrandom.pagging.GifsDataSource
+import com.haretskiy.pavel.gifrandom.pagging.GifsSourceFactory
 import com.haretskiy.pavel.gifrandom.utils.Connectivity
-import com.haretskiy.pavel.gifrandom.utils.pagging.GifsDataSource
-import com.haretskiy.pavel.gifrandom.utils.pagging.GifsSourceFactory
 import java.util.concurrent.Executors
 
 class MainViewModel(private val context: Application,

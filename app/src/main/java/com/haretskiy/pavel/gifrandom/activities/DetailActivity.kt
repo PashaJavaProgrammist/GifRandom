@@ -12,28 +12,31 @@ import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.ParameterList
 
 class DetailActivity : AppCompatActivity() {
-
+    
     private var url = EMPTY_STRING
-
+    private val handler = Handler()
+    
     private val detailViewModel: DetailViewModel by viewModel { ParameterList(url) }
-
+    
     private val binding: ActivityDetailBinding by lazy {
         DataBindingUtil.setContentView(this, R.layout.activity_detail) as ActivityDetailBinding
     }
-
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        
         url = intent.getStringExtra(BUNDLE_KEY_URL_DETAIL)
-
+        
         binding.detailModel = detailViewModel
         detailViewModel.initObservers(this)
-
+        
         makeTransition()
     }
-
+    
     private fun makeTransition() {
         ViewCompat.setTransitionName(binding.imageView, VIEW_NAME_IMAGE)
-        Handler().postDelayed({ recreate() }, START_ANIMATION_DELAY)
+        handler.postDelayed({
+            detailViewModel.invalidate()
+        }, START_ANIMATION_DELAY)
     }
 }

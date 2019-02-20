@@ -25,4 +25,8 @@ class DetailViewModel(imageLoader: ImageLoader,
             progress.set(if (it == true) View.VISIBLE else View.GONE)
         })
     }
+    
+    fun invalidate() {
+        url.notifyChange()
+    }
 }

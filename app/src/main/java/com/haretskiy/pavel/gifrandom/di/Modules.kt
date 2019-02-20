@@ -7,11 +7,11 @@ import com.haretskiy.pavel.gifrandom.BASE_URL
 import com.haretskiy.pavel.gifrandom.adapters.GifAdapter
 import com.haretskiy.pavel.gifrandom.data.Repository
 import com.haretskiy.pavel.gifrandom.data.RepositoryImpl
+import com.haretskiy.pavel.gifrandom.pagging.DiffCallBack
+import com.haretskiy.pavel.gifrandom.pagging.GifsSourceFactory
 import com.haretskiy.pavel.gifrandom.rest.RestApi
 import com.haretskiy.pavel.gifrandom.rest.RestApiImpl
 import com.haretskiy.pavel.gifrandom.utils.*
-import com.haretskiy.pavel.gifrandom.utils.pagging.DiffCallBack
-import com.haretskiy.pavel.gifrandom.utils.pagging.GifsSourceFactory
 import com.haretskiy.pavel.gifrandom.viewModels.DetailViewModel
 import com.haretskiy.pavel.gifrandom.viewModels.MainViewModel
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
@@ -54,6 +54,7 @@ val appModule: Module = module {
     single { RepositoryImpl(get()) as Repository }
     single { DiffCallBack() }
     single { GifsSourceFactory(get()) }
+    
     factory { GifAdapter(get(), get(), get()) }
 }
 

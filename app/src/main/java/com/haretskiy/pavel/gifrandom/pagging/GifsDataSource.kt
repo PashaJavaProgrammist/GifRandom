@@ -1,4 +1,4 @@
-package com.haretskiy.pavel.gifrandom.utils.pagging
+package com.haretskiy.pavel.gifrandom.pagging
 
 import android.arch.paging.PositionalDataSource
 import com.haretskiy.pavel.gifrandom.ZERO_OFFSET

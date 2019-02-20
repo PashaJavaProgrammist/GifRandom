@@ -1,9 +1,5 @@
 package com.haretskiy.pavel.gifrandom
 
-const val START = "START ->"
-const val END = "END <-"
-const val RESPONSE = "RESPONSE"
-
 const val EMPTY_STRING = ""
 const val DEFAULT_RATING = "Y"
 const val ZERO = 0
@@ -18,6 +14,6 @@ const val ZERO_OFFSET = "0"
 const val BUNDLE_KEY_URL_DETAIL = "BUNDLE_KEY_URL_DETAIL"
 
 const val VIEW_NAME_IMAGE = "VIEW_NAME_IMAGE"
-const val START_ANIMATION_DELAY = 600L
+const val START_ANIMATION_DELAY = 1000L
 
 const val SHARE_TYPE_TEXT = "text/plain"
